@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHOTCRAFT — AI Commercial Studio</title>
+<meta name="description" content="SHOTCRAFT turns one product image into cinematic commercial photography.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--bg:#f2f0eb;--paper:#fbfaf7;--ink:#171817;--muted:#747570;--line:#d9d7d1;--dark:#20211f;--silver:#c5c6c3}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:30;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{text-decoration:none;color:inherit}button{font:inherit;border:0;background:none;cursor:pointer}
+.mono{font:10px "DM Mono",monospace;letter-spacing:.16em;text-transform:uppercase}
+nav{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;position:fixed;top:0;width:100%;z-index:20;background:rgba(242,240,235,.76);backdrop-filter:blur(22px)}
+.logo{font-weight:800;letter-spacing:.2em;font-size:14px}.logo b{font-weight:400;opacity:.4}.navlinks{display:flex;gap:32px;color:#74756f;font-size:12px}.navlinks a:hover{color:#111}.navcta{border:1px solid #b7b7b1;padding:10px 17px;border-radius:999px;font-size:11px;background:#fbfaf7}.navcta:hover{background:#181918;color:#fff}
+.hero{min-height:100vh;padding:145px 5vw 75px;display:grid;grid-template-columns:1fr .95fr;gap:4vw;align-items:center;border-bottom:1px solid var(--line);position:relative}
+.hero:before{content:"";position:absolute;width:1px;height:100vh;right:9%;top:0;background:linear-gradient(transparent,#c8c7c2,transparent);opacity:.7}
+.kicker{color:#777973;margin-bottom:24px}.hero h1{font-size:clamp(58px,8vw,126px);line-height:.82;letter-spacing:-.085em;font-weight:700;max-width:900px}.hero h1 span{display:inline-block;color:#858680;font-weight:500}
+.hero-copy{margin-top:32px;max-width:570px;color:#6e706b;font-size:15px;line-height:1.75}.actions{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:12px;border:1px solid #bdbdb7;border-radius:999px;padding:14px 19px;font-size:12px;transition:.25s;background:rgba(255,255,255,.28)}.btn.primary{background:#1b1c1a;color:#fff;border-color:#1b1c1a}.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.1)}
+.hero-art{height:600px;position:relative;display:grid;place-items:center}.halo{position:absolute;width:530px;height:530px;border-radius:50%;border:1px solid #d1d0ca;box-shadow:inset 0 0 90px rgba(0,0,0,.025),0 0 100px rgba(0,0,0,.04)}.halo:before,.halo:after{content:"";position:absolute;border:1px solid #d8d7d1;border-radius:50%}.halo:before{inset:48px}.halo:after{inset:105px}
+.product{width:min(370px,72vw);height:500px;position:relative;overflow:hidden;border:1px solid #d0cec7;background:radial-gradient(circle at 50% 18%,#fff,#d8d7d2 42%,#9e9e99 100%);box-shadow:0 45px 100px rgba(39,40,38,.18);z-index:2}.product:before{content:"";position:absolute;width:190px;height:335px;left:90px;top:93px;border-radius:44% 56% 38% 45%;background:linear-gradient(135deg,#f7f6f1 0%,#b9bab6 38%,#737570 63%,#343634 95%);transform:rotate(-8deg);box-shadow:35px 35px 65px rgba(0,0,0,.3)}.product:after{content:"SHOTCRAFT / PRODUCT 01";position:absolute;left:20px;bottom:19px;font:9px "DM Mono";letter-spacing:.16em;color:#555752}
+.float{position:absolute;z-index:3;border:1px solid #c8c7c1;background:rgba(251,250,247,.82);backdrop-filter:blur(14px);padding:11px 13px;color:#565853;font:9px "DM Mono";letter-spacing:.1em;box-shadow:0 12px 30px rgba(0,0,0,.06)}.f1{top:38px;left:0}.f2{right:0;top:145px}.f3{bottom:38px;left:25px}
+.scan{position:absolute;z-index:4;width:370px;height:1px;background:linear-gradient(90deg,transparent,#333,transparent);opacity:.42;animation:scan 4s ease-in-out infinite}@keyframes scan{0%,100%{transform:translateY(-180px);opacity:0}30%,70%{opacity:.45}50%{transform:translateY(180px)}}
+.marquee{border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:17px 0;color:#8a8b85;background:#e9e7e1}.track{display:inline-block;animation:scroll 30s linear infinite}.track span{margin:0 34px}@keyframes scroll{to{transform:translateX(-50%)}}
+.section{padding:120px 5vw;border-bottom:1px solid var(--line)}.section-head{display:grid;grid-template-columns:1fr 2fr;gap:5vw;margin-bottom:62px}.eyebrow{color:#7a7b75}.section h2{font-size:clamp(40px,5.1vw,78px);line-height:.92;letter-spacing:-.07em;font-weight:600;max-width:930px}
+.manifesto{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#d4d2cb}.manifesto>div{background:var(--paper);min-height:350px;padding:36px}.manifesto h3{font-size:30px;letter-spacing:-.05em;margin-top:100px}.manifesto p{color:#777973;font-size:13px;line-height:1.7;max-width:420px;margin-top:15px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#d4d2cb}.card{background:var(--paper);padding:32px;min-height:290px;position:relative}.card:after{content:"↗";position:absolute;right:26px;top:26px;color:#8c8d87}.num{color:#858680}.card h3{font-size:24px;letter-spacing:-.04em;margin:72px 0 13px}.card p{color:#777973;font-size:13px;line-height:1.7}
+.studio{background:linear-gradient(180deg,#e9e7e1,#f2f0eb)}.app{border:1px solid #c8c7c1;background:#20211f;min-height:620px;display:grid;grid-template-columns:245px 1fr;box-shadow:0 35px 90px rgba(25,26,24,.14);border-radius:2px;overflow:hidden}.side{border-right:1px solid #3d3e3b;padding:25px;color:#e9e9e5}.side-title{font-size:12px;letter-spacing:.12em;margin-bottom:35px}.control{margin-bottom:22px}.control label{display:block;color:#898b85;font:9px "DM Mono";letter-spacing:.13em;text-transform:uppercase;margin-bottom:8px}.select{border:1px solid #3c3d39;padding:12px;color:#d8d8d3;font-size:11px;background:#282925;display:flex;justify-content:space-between}.generate{width:100%;justify-content:center;margin-top:10px;background:#f1f0eb;color:#171817;border-color:#f1f0eb}
+.preview{position:relative;margin:18px;background:radial-gradient(circle at 67% 23%,#6d706b,#343632 38%,#181917 80%);display:grid;place-items:center;overflow:hidden;border:1px solid #3d3e3a}.preview:before{content:"";width:270px;height:405px;border-radius:48% 52% 42% 47%;background:linear-gradient(135deg,#faf9f4,#b9bbb6 42%,#292b29 78%);transform:rotate(-8deg);box-shadow:70px 50px 100px #080908}.preview .label{position:absolute;top:18px;left:18px;color:#a6a8a1}.preview .status{position:absolute;right:18px;top:18px;color:#d4d5cf}.preview .bottom{position:absolute;bottom:18px;left:18px;right:18px;display:flex;justify-content:space-between;color:#9a9c95}
+.interface-top{position:absolute;top:48px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:7px}.pill{border:1px solid #676964;background:rgba(20,21,20,.65);color:#d4d5cf;padding:7px 10px;font:8px "DM Mono";letter-spacing:.12em}
+.credits{position:absolute;right:18px;bottom:46px;z-index:3;background:rgba(17,18,17,.78);border:1px solid #555751;padding:12px 14px;color:#d9dad5;font:9px "DM Mono";letter-spacing:.1em}.credits b{font-size:13px}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#d4d2cb;margin-top:1px}.compare-card{background:var(--paper);padding:28px;min-height:280px;position:relative;overflow:hidden}.compare-visual{height:180px;margin-top:22px;display:grid;place-items:center;background:#e4e2dc;border:1px solid #d1d0ca;position:relative}.before-shape{width:100px;height:130px;background:#aaa;filter:blur(1px);border-radius:45%;box-shadow:30px 20px 30px #bbb}.after-shape{width:100px;height:130px;background:linear-gradient(135deg,#f7f6f1,#737570);border-radius:45%;transform:rotate(-7deg);box-shadow:30px 20px 35px #777}.compare-card .tag{position:absolute;top:25px;right:25px}
+.pricing{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#d4d2cb}.price{background:var(--paper);padding:32px;min-height:410px}.price.featured{background:#20211f;color:#f4f3ee}.price .small{color:#7d7e78;font:9px "DM Mono";letter-spacing:.14em}.featured .small{color:#a9aaa4}.price h3{font-size:25px;margin:20px 0}.amount{font-size:45px;letter-spacing:-.07em}.price p{font-size:11px;line-height:1.6;color:#777973;margin:10px 0 25px}.featured p{color:#a3a49e}.price ul{list-style:none;font-size:11px;line-height:2.25;color:#74756f}.featured ul{color:#c8c9c3}.price li:before{content:"— ";opacity:.5}
+.cta{min-height:72vh;display:grid;place-items:center;text-align:center;padding:100px 5vw;background:radial-gradient(circle at 50% 42%,#ffffff,#e6e4de 58%)}.cta h2{font-size:clamp(58px,9.2vw,145px);line-height:.8;letter-spacing:-.09em}.cta p{color:#777973;margin:30px auto;max-width:500px;line-height:1.7;font-size:13px}
+footer{padding:25px 5vw;display:flex;justify-content:space-between;color:#777872;font:9px "DM Mono";letter-spacing:.1em}
+.toast{position:fixed;right:22px;bottom:22px;z-index:50;background:#1d1e1c;color:#fff;padding:13px 17px;border-radius:999px;font:10px "DM Mono";letter-spacing:.08em;transform:translateY(80px);opacity:0;transition:.3s}.toast.show{transform:none;opacity:1}
+@media(max-width:900px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:125px}.hero:before{display:none}.hero-art{height:500px}.section-head{grid-template-columns:1fr;gap:22px}.features,.pricing,.manifesto,.compare{grid-template-columns:1fr}.app{grid-template-columns:1fr}.side{border-right:0;border-bottom:1px solid #3d3e3b}.preview{min-height:430px}footer{gap:15px;flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<nav>
+<a class="logo" href="#">SHOTCRAFT <b>/ AI</b></a>
+<div class="navlinks"><a href="#studio">Studio</a><a href="#why">Why ShotCraft</a><a href="#pricing">Pricing</a></div>
+<a class="navcta" href="#try">Start creating ↗</a>
+</nav>
+
+<main>
+<section class="hero">
+<div>
+<div class="kicker mono">AI COMMERCIAL STUDIO</div>
+<h1>The studio<br>is now <span>software.</span></h1>
+<p class="hero-copy">Turn one product photo into a complete commercial photoshoot. Direct the model, location, lighting and format — then create campaign-ready visuals in minutes.</p>
+<div class="actions"><a class="btn primary" href="#try">Create your first shoot <b>↗</b></a><a class="btn" href="#studio">Enter the studio</a></div>
+</div>
+<div class="hero-art">
+<div class="halo"></div><div class="product"><div class="scan"></div></div>
+<div class="float f1">01 / PRODUCT LOCK</div><div class="float f2">AI DIRECTED · 4K</div><div class="float f3">LIVE · GENERATING</div>
+</div>
+</section>
+
+<div class="marquee"><div class="track"><span>NO STUDIO</span><span>NO MODELS</span><span>NO CREW</span><span>NO WAITING</span><span>COMMERCIAL QUALITY</span><span>PRODUCT CONSISTENCY</span><span>NO STUDIO</span><span>NO MODELS</span><span>NO CREW</span><span>NO WAITING</span><span>COMMERCIAL QUALITY</span><span>PRODUCT CONSISTENCY</span></div></div>
+
+<section class="section" id="why">
+<div class="section-head"><div class="eyebrow mono">01 — THE NEW SHOOT</div><h2>Why spend weeks producing a campaign when you can direct one?</h2></div>
+<div class="manifesto">
+<div><div class="mono">OLD WORLD</div><h3>Studio. Models. Location. Crew.</h3><p>Expensive, slow and hard to repeat every time your brand needs a new campaign.</p></div>
+<div><div class="mono">SHOTCRAFT</div><h3>One product. Infinite worlds.</h3><p>Lock the product, then reinvent the world around it — instantly, repeatedly and commercially.</p></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-head"><div class="eyebrow mono">02 — CONTROL</div><h2>Not another prompt box. A real creative direction system.</h2></div>
+<div class="features">
+<div class="card"><div class="num mono">01</div><h3>Product Lock</h3><p>Preserve the product's identity while generating new environments, compositions and campaigns around it.</p></div>
+<div class="card"><div class="num mono">02</div><h3>Scene Director</h3><p>Choose luxury, editorial, lifestyle, festive, minimal or cinematic directions without prompt engineering.</p></div>
+<div class="card"><div class="num mono">03</div><h3>Every Format</h3><p>Generate 1:1, 4:5, 9:16 and 16:9 outputs from the same campaign, ready for ads and social.</p></div>
+</div>
+</section>
+
+<section class="section studio" id="studio">
+<div class="section-head"><div class="eyebrow mono">03 — THE STUDIO</div><h2>Direct the shot. Don't prompt the machine.</h2></div>
+<div class="app">
+<aside class="side">
+<div class="side-title">NEW PHOTOSHOOT</div>
+<div class="control"><label>Shot type</label><div class="select">Luxury editorial <span>⌄</span></div></div>
+<div class="control"><label>Environment</label><div class="select">Pearl architecture <span>⌄</span></div></div>
+<div class="control"><label>Talent</label><div class="select">Indian / female <span>⌄</span></div></div>
+<div class="control"><label>Lighting</label><div class="select">Soft directional <span>⌄</span></div></div>
+<div class="control"><label>Output</label><div class="select">4:5 · Ultra HD <span>⌄</span></div></div>
+<button class="btn generate" onclick="generate()">Generate 4 shots ↗</button>
+</aside>
+<div class="preview">
+<div class="interface-top"><span class="pill">CINEMATIC</span><span class="pill">PRODUCT LOCK</span><span class="pill">4:5</span></div>
+<div class="label mono">PREVIEW / SHOT 01</div><div class="status mono" id="status">● READY</div>
+<div class="bottom mono"><span>PRODUCT LOCKED</span><span>04 VARIATIONS</span></div>
+<div class="credits">CREDITS <b id="credits">480</b> / 500</div>
+</div>
+</div>
+<div class="compare">
+<div class="compare-card"><div class="mono">BEFORE · RAW UPLOAD</div><span class="tag mono">01</span><div class="compare-visual"><div class="before-shape"></div></div></div>
+<div class="compare-card"><div class="mono">AFTER · SHOTCRAFT</div><span class="tag mono">02</span><div class="compare-visual"><div class="after-shape"></div></div></div>
+</div>
+</section>
+
+<section class="section" id="pricing">
+<div class="section-head"><div class="eyebrow mono">04 — MEMBERSHIP</div><h2>One subscription. A studio that never closes.</h2></div>
+<div class="pricing">
+<div class="price"><div class="small">STARTER</div><h3>Creator</h3><div class="amount">₹599</div><p>/ month · for creators & small sellers</p><ul><li>60 generations</li><li>Commercial downloads</li><li>All standard formats</li><li>Core scene library</li></ul></div>
+<div class="price featured"><div class="small">MOST POPULAR</div><h3>Brand</h3><div class="amount">₹1,499</div><p>/ month · for growing brands</p><ul><li>200 generations</li><li>4K exports</li><li>Brand style memory</li><li>Campaign variations</li></ul></div>
+<div class="price"><div class="small">PRO</div><h3>Studio Pro</h3><div class="amount">₹2,999</div><p>/ month · for serious commerce</p><ul><li>500 generations</li><li>Priority generation</li><li>Advanced scenes</li><li>Bulk creation</li><li>Commercial licence</li></ul></div>
+<div class="price"><div class="small">AGENCY</div><h3>Enterprise</h3><div class="amount">₹4,999</div><p>/ month · for agencies & teams</p><ul><li>1,500 generations</li><li>Multiple workspaces</li><li>Team seats</li><li>Bulk generation</li><li>Priority support</li></ul></div>
+</div>
+</section>
+
+<section class="cta" id="try">
+<div><div class="kicker mono">YOUR NEXT PHOTOSHOOT STARTS HERE</div><h2>Make it look<br>photographed.</h2><p>Upload one product. Direct the world around it. Create a campaign in minutes.</p><button class="btn primary" onclick="generate()">Start creating — free ↗</button></div>
+</section>
+</main>
+<footer><div>SHOTCRAFT / AI</div><div>COMMERCIAL IMAGERY, REIMAGINED.</div><div>© 2026</div></footer>
+<div class="toast" id="toast">SHOT 01 → GENERATING · 04 VARIATIONS</div>
+<script>
+function generate(){
+ const s=document.getElementById('status'), c=document.getElementById('credits'), t=document.getElementById('toast');
+ s.textContent='● GENERATING'; c.textContent='476'; t.classList.add('show');
+ setTimeout(()=>{s.textContent='● READY';c.textContent='476';t.textContent='SHOT 01 → READY · 04 VARIATIONS'},2200);
+ setTimeout(()=>t.classList.remove('show'),4300);
+}
+</script>
+</body>
+</html>
