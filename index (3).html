@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHOTCRAFT — The AI Commercial Studio</title>
+<meta name="description" content="SHOTCRAFT turns one product photo into a complete commercial photoshoot with AI.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--bg:#070707;--ink:#f5f3ee;--muted:#8f8b84;--line:rgba(255,255,255,.11);--glass:rgba(255,255,255,.045);--silver:#d9d6cf}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:30;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body:after{content:"";position:fixed;inset:-30%;pointer-events:none;z-index:-1;background:radial-gradient(circle at 72% 18%,rgba(205,199,187,.12),transparent 25%),radial-gradient(circle at 15% 75%,rgba(125,118,105,.08),transparent 22%)}
+a{text-decoration:none;color:inherit}button{font:inherit}.mono{font:10px "DM Mono",monospace;letter-spacing:.16em;text-transform:uppercase}
+nav{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;position:fixed;top:0;width:100%;z-index:20;background:rgba(7,7,7,.68);backdrop-filter:blur(24px)}
+.logo{font-weight:800;letter-spacing:.2em;font-size:14px}.logo b{font-weight:400;opacity:.38}.navlinks{display:flex;gap:34px;color:#92908b;font-size:12px}.navlinks a:hover{color:#fff}.navcta{border:1px solid #474641;padding:10px 17px;border-radius:999px;font-size:11px;transition:.25s}.navcta:hover{background:#eeeae2;color:#090909}
+.hero{min-height:100vh;padding:150px 5vw 80px;display:grid;grid-template-columns:1.05fr .95fr;gap:4vw;align-items:center;border-bottom:1px solid var(--line);position:relative}
+.hero:before{content:"";position:absolute;width:1px;height:100vh;right:9%;top:0;background:linear-gradient(transparent,var(--line),transparent);opacity:.5}
+.kicker{color:#85817a;margin-bottom:25px}.hero h1{font-size:clamp(58px,8.1vw,126px);line-height:.83;letter-spacing:-.085em;font-weight:700;max-width:900px}.hero h1 span{display:inline-block;color:#858078;font-weight:500}.hero-copy{margin-top:34px;max-width:580px;color:#99958d;font-size:15px;line-height:1.75}.actions{display:flex;gap:11px;margin-top:32px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;gap:12px;border:1px solid #3b3b38;border-radius:999px;padding:14px 19px;font-size:12px;transition:.25s}.btn.primary{background:#e8e5de;color:#0b0b0b;border-color:#e8e5de}.btn:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(255,255,255,.08)}
+.hero-art{height:610px;position:relative;display:grid;place-items:center}.halo{position:absolute;width:520px;height:520px;border-radius:50%;border:1px solid #1f1f1d;box-shadow:inset 0 0 90px rgba(255,255,255,.025),0 0 100px rgba(255,255,255,.025)}.halo:before,.halo:after{content:"";position:absolute;border:1px solid #292825;border-radius:50%}.halo:before{inset:48px}.halo:after{inset:105px}
+.product{width:min(390px,70vw);height:510px;position:relative;overflow:hidden;border:1px solid #35342f;background:radial-gradient(circle at 48% 23%,#706b61 0,#292722 30%,#0b0b0a 73%);box-shadow:0 50px 120px #000;z-index:2}.product:before{content:"";position:absolute;width:185px;height:320px;left:103px;top:110px;border-radius:45% 55% 38% 44%;background:linear-gradient(135deg,#e5e0d5 2%,#8d877c 38%,#34312b 68%,#111 95%);transform:rotate(-9deg);box-shadow:40px 35px 75px #000}.product:after{content:"SHOTCRAFT";position:absolute;left:22px;bottom:20px;font:9px "DM Mono";letter-spacing:.2em;color:#aaa69f}.float{position:absolute;z-index:3;border:1px solid #363631;background:rgba(8,8,8,.8);backdrop-filter:blur(12px);padding:11px 13px;color:#a8a49c;font:9px "DM Mono";letter-spacing:.1em}.f1{top:42px;left:0}.f2{right:0;top:160px}.f3{bottom:42px;left:28px}.scan{position:absolute;z-index:4;width:390px;height:1px;background:linear-gradient(90deg,transparent,#ddd,transparent);opacity:.45;animation:scan 4s ease-in-out infinite}@keyframes scan{0%,100%{transform:translateY(-190px);opacity:0}30%,70%{opacity:.5}50%{transform:translateY(190px)}}
+.marquee{border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:17px 0;color:#5e5b56}.track{display:inline-block;animation:scroll 32s linear infinite}.track span{margin:0 34px}@keyframes scroll{to{transform:translateX(-50%)}}
+.section{padding:125px 5vw;border-bottom:1px solid var(--line)}.section-head{display:grid;grid-template-columns:1fr 2fr;gap:5vw;margin-bottom:65px}.eyebrow{color:#66635e}.section h2{font-size:clamp(40px,5.2vw,78px);line-height:.92;letter-spacing:-.07em;font-weight:600;max-width:900px}
+.manifesto{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}.manifesto>div{background:#0b0b0b;min-height:360px;padding:36px}.manifesto h3{font-size:30px;letter-spacing:-.05em;margin-top:100px}.manifesto p{color:#77736d;font-size:13px;line-height:1.7;max-width:420px;margin-top:15px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}.card{background:#090909;padding:32px;min-height:290px;position:relative}.card:after{content:"↗";position:absolute;right:26px;top:26px;color:#555}.num{color:#5e5a54}.card h3{font-size:24px;letter-spacing:-.04em;margin:72px 0 13px}.card p{color:#77736c;font-size:13px;line-height:1.7}
+.studio{background:linear-gradient(180deg,#090909,#0b0b0a)}.app{border:1px solid #282824;background:#0d0d0c;min-height:600px;display:grid;grid-template-columns:245px 1fr;box-shadow:0 35px 100px rgba(0,0,0,.35)}.side{border-right:1px solid #292926;padding:25px}.side-title{font-size:12px;letter-spacing:.12em;margin-bottom:35px}.control{margin-bottom:24px}.control label{display:block;color:#62605b;font:9px "DM Mono";letter-spacing:.13em;text-transform:uppercase;margin-bottom:9px}.select{border:1px solid #282824;padding:12px;color:#c7c3bb;font-size:11px;background:#10100f}.generate{width:100%;justify-content:center;margin-top:12px}.preview{position:relative;margin:20px;background:radial-gradient(circle at 65% 25%,#464139,#161512 38%,#080808 80%);display:grid;place-items:center;overflow:hidden}.preview:before{content:"";width:270px;height:400px;border-radius:48% 52% 42% 47%;background:linear-gradient(135deg,#e2ddd2,#6c665d 42%,#171613 78%);transform:rotate(-8deg);box-shadow:70px 50px 100px #000}.preview .label{position:absolute;top:18px;left:18px;color:#77736c}.preview .status{position:absolute;right:18px;top:18px;color:#a7a39b}.preview .bottom{position:absolute;bottom:18px;left:18px;right:18px;display:flex;justify-content:space-between;color:#77736d}
+.pricing{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}.price{background:#090909;padding:32px;min-height:410px}.price.featured{background:#e9e5dc;color:#0b0b0b}.price .small{color:#77736d;font:9px "DM Mono";letter-spacing:.14em}.featured .small{color:#5d5953}.price h3{font-size:25px;margin:20px 0}.amount{font-size:45px;letter-spacing:-.07em}.price p{font-size:11px;line-height:1.6;color:#77736d;margin:10px 0 25px}.featured p{color:#64605a}.price ul{list-style:none;font-size:11px;line-height:2.25;color:#aaa69f}.featured ul{color:#494640}.price li:before{content:"— ";opacity:.5}
+.cta{min-height:75vh;display:grid;place-items:center;text-align:center;padding:100px 5vw;background:radial-gradient(circle at 50% 45%,#171613,#070707 58%)}.cta h2{font-size:clamp(58px,9.5vw,145px);line-height:.8;letter-spacing:-.09em}.cta p{color:#77736d;margin:31px auto;max-width:500px;line-height:1.7;font-size:13px}
+footer{padding:25px 5vw;display:flex;justify-content:space-between;color:#55524d;font:9px "DM Mono";letter-spacing:.1em}
+@media(max-width:900px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:125px}.hero:before{display:none}.hero-art{height:500px}.section-head{grid-template-columns:1fr;gap:22px}.features,.pricing,.manifesto{grid-template-columns:1fr}.app{grid-template-columns:1fr}.side{border-right:0;border-bottom:1px solid #292926}.preview{min-height:430px}.pricing .price{min-height:330px}}
+</style>
+
+<style>
+/* SHOTCRAFT V3 — product-first SaaS layer */
+.upload-zone{cursor:pointer;transition:transform .25s ease,border-color .25s ease,background .25s ease}
+.upload-zone:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.045)}
+.upload-zone.dragging{border-color:#fff;background:rgba(255,255,255,.08);transform:scale(1.01)}
+#productInput{display:none}
+.upload-status{margin-top:12px;font:11px/1.5 "DM Mono",monospace;letter-spacing:.08em;opacity:.65}
+.generation-status{display:flex;align-items:center;gap:10px;margin-top:18px;font:11px "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 16px rgba(255,255,255,.9);animation:scPulse 1s infinite}
+@keyframes scPulse{50%{opacity:.25;transform:scale(.65)}}
+.price-card{position:relative}
+.price-card.featured{transform:translateY(-6px)}
+.popular{position:absolute;right:18px;top:18px;padding:7px 10px;border:1px solid rgba(255,255,255,.18);font:9px "DM Mono",monospace;letter-spacing:.12em}
+.credits{margin:20px 0 8px;font-size:24px;font-weight:700;letter-spacing:-.04em}
+.credits small{display:block;margin-top:4px;font:9px "DM Mono",monospace;letter-spacing:.12em;opacity:.45}
+.credit-note{display:grid;grid-template-columns:36px 1.5fr 1fr;gap:22px;margin-top:24px;padding:22px 0;border-top:1px solid rgba(255,255,255,.1);font-size:12px;line-height:1.7;opacity:.72}
+.credit-note>span{font:10px "DM Mono",monospace;opacity:.45}
+.credit-note p{margin:0}
+@media(max-width:800px){
+  .price-card.featured{transform:none}
+  .credit-note{grid-template-columns:1fr;gap:8px}
+}
+</style>
+
+</head>
+<body>
+<nav>
+  <a class="logo" href="#">SHOTCRAFT <b>/ AI</b></a>
+  <div class="navlinks"><a href="#studio">Studio</a><a href="#why">Why ShotCraft</a><a href="#pricing">Pricing</a></div>
+  <a class="navcta" href="#try">Start creating ↗</a>
+</nav>
+
+<main>
+<section class="hero">
+  <div>
+    <div class="kicker mono">AI COMMERCIAL STUDIO · 2026</div>
+    <h1>The studio<br>is now <span>software.</span></h1>
+    <p class="hero-copy">Turn one product photo into a complete commercial photoshoot. Direct the model, location, lighting and format — then create campaign-ready visuals in minutes.</p>
+    <div class="actions"><a class="btn primary" href="#try">Create your first shoot <b>↗</b></a><a class="btn" href="#studio">Enter the studio</a></div>
+  </div>
+  <div class="hero-art">
+    <div class="halo"></div><div class="product"><div class="scan"></div></div>
+    <div class="float f1">01 / PRODUCT LOCK</div><div class="float f2">AI DIRECTED</div><div class="float f3">4K · COMMERCIAL READY</div>
+  </div>
+</section>
+
+<div class="marquee"><div class="track"><span>NO STUDIO</span><span>NO MODELS</span><span>NO CREW</span><span>NO WAITING</span><span>COMMERCIAL QUALITY</span><span>NO STUDIO</span><span>NO MODELS</span><span>NO CREW</span><span>NO WAITING</span><span>COMMERCIAL QUALITY</span></div></div>
+
+<section class="section" id="why">
+  <div class="section-head"><div class="eyebrow mono">01 — THE NEW SHOOT</div><h2>Why spend weeks producing a campaign when you can direct one?</h2></div>
+  <div class="manifesto">
+    <div><div class="mono">OLD WORLD</div><h3>Studio. Models. Location. Crew.</h3><p>Expensive, slow and hard to repeat every time your brand needs a new campaign.</p></div>
+    <div><div class="mono">SHOTCRAFT</div><h3>One product. Infinite worlds.</h3><p>Keep the product consistent and change everything around it — instantly, repeatedly, commercially.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div class="eyebrow mono">02 — CONTROL</div><h2>Not another prompt box. A real creative direction system.</h2></div>
+  <div class="features">
+    <div class="card"><div class="num mono">01</div><h3>Product Lock</h3><p>Preserve the product's identity while generating new environments, compositions and campaigns around it.</p></div>
+    <div class="card"><div class="num mono">02</div><h3>Scene Director</h3><p>Choose luxury, editorial, lifestyle, festive, minimal or build a visual direction without learning prompt engineering.</p></div>
+    <div class="card"><div class="num mono">03</div><h3>Every Format</h3><p>Generate 1:1, 4:5, 9:16, 16:9 and marketplace-ready outputs from the same campaign.</p></div>
+  </div>
+</section>
+
+<section class="section studio" id="studio">
+  <div class="section-head"><div class="eyebrow mono">03 — THE STUDIO</div><h2>Direct the shot. Don't prompt the machine.</h2></div>
+  <div class="app">
+    <aside class="side">
+      <div class="side-title">NEW PHOTOSHOOT</div>
+      <div class="control"><label>Shot type</label><div class="select">Luxury editorial</div></div>
+      <div class="control"><label>Environment</label><div class="select">Warm stone studio</div></div>
+      <div class="control"><label>Talent</label><div class="select">Indian / female</div></div>
+      <div class="control"><label>Lighting</label><div class="select">Soft directional</div></div>
+      <div class="control"><label>Output</label><div class="select">4:5 · High resolution</div></div>
+      <a class="btn primary generate" href="#try">Generate 4 shots ↗</a>
+    </aside>
+    <div class="preview">
+      <div class="label mono">PREVIEW / SHOT 01</div><div class="status mono">● READY</div>
+      <div class="bottom mono"><span>PRODUCT LOCKED</span><span>04 VARIATIONS</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="pricing-section">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">MEMBERSHIP</span>
+          <h2>Choose your<br><em>studio capacity.</em></h2>
+        </div>
+        <p>Usage-based pricing keeps your workflow flexible and our economics healthy. Upgrade when your content volume grows.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <article class="price-card">
+          <span class="plan-label">STARTER</span>
+          <div class="price">₹599<span>/mo</span></div>
+          <p class="plan-copy">For creators testing AI commercial photography.</p>
+          <div class="credits">40 <small>CREDITS / MONTH</small></div>
+          <ul>
+            <li>Product photography</li>
+            <li>Commercial scenes</li>
+            <li>1:1 · 4:5 · 9:16</li>
+            <li>Product Lock</li>
+          </ul>
+          <a href="#studio" class="price-cta">Start creating <span>↗</span></a>
+        </article>
+
+        <article class="price-card featured">
+          <div class="popular">MOST POPULAR</div>
+          <span class="plan-label">GROWTH</span>
+          <div class="price">₹1,499<span>/mo</span></div>
+          <p class="plan-copy">For growing D2C brands producing content every week.</p>
+          <div class="credits">120 <small>CREDITS / MONTH</small></div>
+          <ul>
+            <li>Everything in Starter</li>
+            <li>Model & lifestyle shots</li>
+            <li>Advanced commercial scenes</li>
+            <li>Priority generation</li>
+          </ul>
+          <a href="#studio" class="price-cta">Build your studio <span>↗</span></a>
+        </article>
+
+        <article class="price-card">
+          <span class="plan-label">PRO</span>
+          <div class="price">₹2,999<span>/mo</span></div>
+          <p class="plan-copy">For brands and agencies running high-volume creative.</p>
+          <div class="credits">300 <small>CREDITS / MONTH</small></div>
+          <ul>
+            <li>Everything in Growth</li>
+            <li>High-quality exports</li>
+            <li>Campaign-ready variations</li>
+            <li>Faster generation queue</li>
+          </ul>
+          <a href="#studio" class="price-cta">Go Pro <span>↗</span></a>
+        </article>
+
+        <article class="price-card">
+          <span class="plan-label">STUDIO</span>
+          <div class="price">₹4,999<span>/mo</span></div>
+          <p class="plan-copy">For serious teams replacing repetitive studio production.</p>
+          <div class="credits">600 <small>CREDITS / MONTH</small></div>
+          <ul>
+            <li>Everything in Pro</li>
+            <li>Large-scale content production</li>
+            <li>Priority compute</li>
+            <li>Built for teams & agencies</li>
+          </ul>
+          <a href="#studio" class="price-cta">Enter Studio <span>↗</span></a>
+        </article>
+      </div>
+
+      <div class="credit-note">
+        <span>01</span>
+        <p><strong>One credit = one standard generation.</strong> Premium outputs use more credits — 4K: 2 · Model/Lifestyle: 3 · Advanced Commercial: 4 · Video: 10–20.</p>
+        <p class="topup">Need more? <strong>Top up 100 / 300 / 1,000 credits</strong> anytime.</p>
+      </div>
+    </section>
+
+<section class="cta" id="try">
+  <div><div class="kicker mono">YOUR NEXT PHOTOSHOOT STARTS HERE</div><h2>Make it look<br>photographed.</h2><p>Upload one product. Direct the world around it. Create a campaign in minutes.</p><a class="btn primary" href="#">Start creating — free ↗</a></div>
+</section>
+</main>
+<footer><div>SHOTCRAFT / AI</div><div>COMMERCIAL IMAGERY, REIMAGINED.</div><div>© 2026</div></footer>
+
+<script>
+(() => {
+  const input = document.querySelector('#productInput');
+  const zone = document.querySelector('.upload-zone');
+  const status = document.querySelector('.upload-status');
+  if (!zone) return;
+
+  const setStatus = (text) => { if (status) status.textContent = text; };
+
+  zone.addEventListener('click', () => input?.click());
+  ['dragenter','dragover'].forEach(evt => zone.addEventListener(evt, e => {
+    e.preventDefault(); zone.classList.add('dragging');
+  }));
+  ['dragleave','drop'].forEach(evt => zone.addEventListener(evt, e => {
+    e.preventDefault(); zone.classList.remove('dragging');
+  }));
+  zone.addEventListener('drop', e => {
+    const file = e.dataTransfer.files?.[0];
+    if (file) handleFile(file);
+  });
+  input?.addEventListener('change', e => {
+    const file = e.target.files?.[0];
+    if (file) handleFile(file);
+  });
+
+  function handleFile(file) {
+    if (!file.type.startsWith('image/')) {
+      setStatus('Please upload a product image.');
+      return;
+    }
+    setStatus(`${file.name} · READY FOR PRODUCT LOCK`);
+    const title = zone.querySelector('h3');
+    if (title) title.textContent = 'Product loaded';
+  }
+})();
+</script>
+
+</body>
+</html>
