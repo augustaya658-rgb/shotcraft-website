@@ -28,7 +28,7 @@ nav{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:cen
 .section{padding:120px 5vw;border-bottom:1px solid var(--line)}.section-head{display:grid;grid-template-columns:1fr 2fr;gap:5vw;margin-bottom:62px}.eyebrow{color:#7a7b75}.section h2{font-size:clamp(40px,5.1vw,78px);line-height:.92;letter-spacing:-.07em;font-weight:600;max-width:930px}
 .manifesto{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#d4d2cb}.manifesto>div{background:var(--paper);min-height:350px;padding:36px}.manifesto h3{font-size:30px;letter-spacing:-.05em;margin-top:100px}.manifesto p{color:#777973;font-size:13px;line-height:1.7;max-width:420px;margin-top:15px}
 .features{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#d4d2cb}.card{background:var(--paper);padding:32px;min-height:290px;position:relative}.card:after{content:"↗";position:absolute;right:26px;top:26px;color:#8c8d87}.num{color:#858680}.card h3{font-size:24px;letter-spacing:-.04em;margin:72px 0 13px}.card p{color:#777973;font-size:13px;line-height:1.7}
-.studio{background:linear-gradient(180deg,#e9e7e1,#f2f0eb)}.app{border:1px solid #c8c7c1;background:#20211f;min-height:620px;display:grid;grid-template-columns:245px 1fr;box-shadow:0 35px 90px rgba(25,26,24,.14);border-radius:2px;overflow:hidden}.side{border-right:1px solid #3d3e3b;padding:25px;color:#e9e9e5}.side-title{font-size:12px;letter-spacing:.12em;margin-bottom:35px}.control{margin-bottom:22px}.control label{display:block;color:#898b85;font:9px "DM Mono";letter-spacing:.13em;text-transform:uppercase;margin-bottom:8px}.select{border:1px solid #3c3d39;padding:12px;color:#d8d8d3;font-size:11px;background:#282925;display:flex;justify-content:space-between}.generate{width:100%;justify-content:center;margin-top:10px;background:#f1f0eb;color:#171817;border-color:#f1f0eb}
+.studio{background:linear-gradient(180deg,#e9e7e1,#f2f0eb)}.app{border:1px solid #c8c7c1;background:#20211f;min-height:620px;display:grid;grid-template-columns:245px 1fr;box-shadow:0 35px 90px rgba(25,26,24,.14);border-radius:2px;overflow:hidden}.side{border-right:1px solid #3d3e3b;padding:25px;color:#e9e9e5}.side-title{font-size:12px;letter-spacing:.12em;margin-bottom:35px}.control{margin-bottom:22px}.control label{display:block;color:#898b85;font:9px "DM Mono";letter-spacing:.13em;text-transform:uppercase;margin-bottom:8px}.select{border:1px solid #3c3d39;padding:12px;color:#d8d8d3;font-size:11px;background:#282925;display:flex;justify-content:space-between}.select-real{width:100%;border:1px solid #3c3d39;padding:12px;color:#d8d8d3;font-size:11px;background:#282925;font-family:inherit;margin-bottom:0}.generate{width:100%;justify-content:center;margin-top:10px;background:#f1f0eb;color:#171817;border-color:#f1f0eb}
 .preview{position:relative;margin:18px;background:radial-gradient(circle at 67% 23%,#6d706b,#343632 38%,#181917 80%);display:grid;place-items:center;overflow:hidden;border:1px solid #3d3e3a}.preview:before{content:"";width:270px;height:405px;border-radius:48% 52% 42% 47%;background:linear-gradient(135deg,#faf9f4,#b9bbb6 42%,#292b29 78%);transform:rotate(-8deg);box-shadow:70px 50px 100px #080908}.preview .label{position:absolute;top:18px;left:18px;color:#a6a8a1}.preview .status{position:absolute;right:18px;top:18px;color:#d4d5cf}.preview .bottom{position:absolute;bottom:18px;left:18px;right:18px;display:flex;justify-content:space-between;color:#9a9c95}
 .interface-top{position:absolute;top:48px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:7px}.pill{border:1px solid #676964;background:rgba(20,21,20,.65);color:#d4d5cf;padding:7px 10px;font:8px "DM Mono";letter-spacing:.12em}
 .credits{position:absolute;right:18px;bottom:46px;z-index:3;background:rgba(17,18,17,.78);border:1px solid #555751;padding:12px 14px;color:#d9dad5;font:9px "DM Mono";letter-spacing:.1em}.credits b{font-size:13px}
@@ -85,16 +85,47 @@ footer{padding:25px 5vw;display:flex;justify-content:space-between;color:#777872
 <div class="app">
 <aside class="side">
 <div class="side-title">NEW PHOTOSHOOT</div>
-<div class="control"><label>Shot type</label><div class="select">Luxury editorial <span>⌄</span></div></div>
-<div class="control"><label>Environment</label><div class="select">Pearl architecture <span>⌄</span></div></div>
-<div class="control"><label>Talent</label><div class="select">Indian / female <span>⌄</span></div></div>
-<div class="control"><label>Lighting</label><div class="select">Soft directional <span>⌄</span></div></div>
-<div class="control"><label>Output</label><div class="select">4:5 · Ultra HD <span>⌄</span></div></div>
-<button class="btn generate" onclick="generate()">Generate 4 shots ↗</button>
+<div class="control"><label>Product photo</label>
+  <input type="file" id="productInput" accept="image/*" style="width:100%;font-size:10px;color:#e9e9e5">
+</div>
+<div class="control"><label>Shot type</label>
+  <select id="shotType" class="select-real">
+    <option value="luxury editorial product photography">Luxury editorial</option>
+    <option value="minimal clean studio product photography">Minimal studio</option>
+    <option value="lifestyle in-context product photography">Lifestyle</option>
+    <option value="flat lay product photography">Flat lay</option>
+  </select>
+</div>
+<div class="control"><label>Environment</label>
+  <select id="environment" class="select-real">
+    <option value="pearl-toned architectural background">Pearl architecture</option>
+    <option value="ivory seamless studio background">Ivory studio</option>
+    <option value="polished marble surface background">Marble surface</option>
+    <option value="soft outdoor natural light setting">Outdoor natural</option>
+  </select>
+</div>
+<div class="control"><label>Lighting</label>
+  <select id="lighting" class="select-real">
+    <option value="soft directional studio lighting">Soft directional</option>
+    <option value="hard dramatic rim lighting">Hard dramatic</option>
+    <option value="warm golden hour lighting">Golden hour</option>
+    <option value="ring light product lighting">Ring light</option>
+  </select>
+</div>
+<div class="control"><label>Output</label>
+  <select id="outputSpec" class="select-real">
+    <option value="1:1|standard">1:1 · Standard</option>
+    <option value="4:5|hd">4:5 · Ultra HD</option>
+    <option value="16:9|hd">16:9 · Ultra HD</option>
+    <option value="9:16|hd">9:16 · Ultra HD</option>
+  </select>
+</div>
+<button class="btn generate" onclick="generate()">Generate shot ↗</button>
 </aside>
 <div class="preview">
 <div class="interface-top"><span class="pill">CINEMATIC</span><span class="pill">PRODUCT LOCK</span><span class="pill">4:5</span></div>
 <div class="label mono">PREVIEW / SHOT 01</div><div class="status mono" id="status">● READY</div>
+<img id="resultImg" style="display:none;max-width:100%;max-height:340px;margin:14px 0;border-radius:2px" alt="Generated product photo">
 <div class="bottom mono"><span>PRODUCT LOCKED</span><span>04 VARIATIONS</span></div>
 <div class="credits">CREDITS <b id="credits">480</b> / 500</div>
 </div>
@@ -122,11 +153,64 @@ footer{padding:25px 5vw;display:flex;justify-content:space-between;color:#777872
 <footer><div>SHOTCRAFT / AI</div><div>COMMERCIAL IMAGERY, REIMAGINED.</div><div>© 2026</div></footer>
 <div class="toast" id="toast">SHOT 01 → GENERATING · 04 VARIATIONS</div>
 <script>
-function generate(){
- const s=document.getElementById('status'), c=document.getElementById('credits'), t=document.getElementById('toast');
- s.textContent='● GENERATING'; c.textContent='476'; t.classList.add('show');
- setTimeout(()=>{s.textContent='● READY';c.textContent='476';t.textContent='SHOT 01 → READY · 04 VARIATIONS'},2200);
- setTimeout(()=>t.classList.remove('show'),4300);
+async function generate(){
+ const s=document.getElementById('status'), c=document.getElementById('credits'), t=document.getElementById('toast'), img=document.getElementById('resultImg');
+ const fileInput=document.getElementById('productInput');
+
+ if(!fileInput || !fileInput.files || !fileInput.files[0]){
+   alert('Pehle ek product photo upload karo');
+   return;
+ }
+
+ s.textContent='● GENERATING'; t.textContent='SHOT 01 → GENERATING · PLEASE WAIT'; t.classList.add('show');
+
+ try {
+   const file = fileInput.files[0];
+   const base64 = await new Promise((resolve, reject) => {
+     const reader = new FileReader();
+     reader.onload = () => resolve(reader.result);
+     reader.onerror = reject;
+     reader.readAsDataURL(file);
+   });
+
+   const shotType = document.getElementById('shotType').value;
+   const environment = document.getElementById('environment').value;
+   const lighting = document.getElementById('lighting').value;
+   const [ratio, tier] = document.getElementById('outputSpec').value.split('|');
+
+   const combinedPrompt = `${shotType}, ${environment}, ${lighting}, ultra high detail, commercial quality`;
+
+   const response = await fetch('/api/generate', {
+     method: 'POST',
+     headers: { 'Content-Type': 'application/json' },
+     body: JSON.stringify({
+       imageBase64: base64,
+       prompt: combinedPrompt,
+       tier: tier,
+       ratio: ratio
+     })
+   });
+
+   const data = await response.json();
+
+   if(!response.ok){
+     s.textContent='● ERROR';
+     t.textContent='GENERATION FAILED — TRY AGAIN';
+     console.error(data);
+     return;
+   }
+
+   img.src = Array.isArray(data.imageUrl) ? data.imageUrl[0] : data.imageUrl;
+   img.style.display = 'block';
+   s.textContent='● READY';
+   t.textContent='SHOT 01 → READY';
+ } catch(err){
+   s.textContent='● ERROR';
+   t.textContent='SOMETHING WENT WRONG';
+   console.error(err);
+ } finally {
+   setTimeout(()=>t.classList.remove('show'),4300);
+ }
 }
 </script>
 </body>
