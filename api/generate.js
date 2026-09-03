@@ -12,52 +12,49 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Image aur prompt dono chahiye" });
   }
 
-  // Quality tier settings
+  // Quality tier -> output_quality aur "raw" mode ka control
   const TIER_SETTINGS = {
-    basic: { steps: 25, base: 768 },
-    standard: { steps: 35, base: 1024 },
-    hd: { steps: 50, base: 1280 },
+    basic: { output_quality: 70, raw: false },
+    standard: { output_quality: 85, raw: false },
+    hd: { output_quality: 95, raw: true },
   };
   const settings = TIER_SETTINGS[tier] || TIER_SETTINGS.standard;
 
-  // Ratio -> width/height (base resolution ko ratio ke hisaab se adjust karta hai)
-  const RATIOS = {
-    "1:1": { w: 1, h: 1 },
-    "4:5": { w: 4, h: 5 },
-    "16:9": { w: 16, h: 9 },
-    "9:16": { w: 9, h: 16 },
-  };
-  const r = RATIOS[ratio] || RATIOS["1:1"];
-  const base = settings.base;
-  const width = r.w >= r.h ? base : Math.round(base * (r.w / r.h));
-  const height = r.h >= r.w ? base : Math.round(base * (r.h / r.w));
+  // Flux sirf ye specific ratios accept karta hai
+  const VALID_RATIOS = ["1:1", "4:5", "16:9", "9:16", "3:2", "2:3", "4:3", "3:4"];
+  const finalRatio = VALID_RATIOS.includes(ratio) ? ratio : "1:1";
 
   try {
-    const replicateResponse = await fetch("https://api.replicate.com/v1/predictions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.REPLICATE_API_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        version: "black-forest-labs/flux-1.1-pro",
-        input: {
-          prompt: prompt,
-          image: imageBase64,
-          width,
-          height,
-          num_inference_steps: settings.steps,
+    // Official models ke liye seedha model-specific endpoint use hota hai — "version" field ki zaroorat nahi
+    const replicateResponse = await fetch(
+      "https://api.replicate.com/v1/models/black-forest-labs/flux-1.1-pro/predictions",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.REPLICATE_API_TOKEN}`,
+          "Content-Type": "application/json",
+          Prefer: "wait", // Replicate ko turant result ka wait karne ko bolta hai (jab tak possible)
         },
-      }),
-    });
+        body: JSON.stringify({
+          input: {
+            prompt: prompt,
+            image_prompt: imageBase64, // "image" nahi, "image_prompt" — Flux Redux feature
+            aspect_ratio: finalRatio,
+            output_format: "jpg",
+            output_quality: settings.output_quality,
+            raw: settings.raw,
+          },
+        }),
+      }
+    );
 
-    const prediction = await replicateResponse.json();
+    let result = await replicateResponse.json();
 
     if (!replicateResponse.ok) {
-      return res.status(500).json({ error: "Replicate API error", details: prediction });
+      return res.status(500).json({ error: "Replicate API error", details: result });
     }
 
-    let result = prediction;
+    // Agar "Prefer: wait" ke bawajood turant result nahi mila, to poll karo
     while (result.status !== "succeeded" && result.status !== "failed") {
       await new Promise((r) => setTimeout(r, 1000));
       const pollResponse = await fetch(
