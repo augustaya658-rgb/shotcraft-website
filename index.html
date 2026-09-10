@@ -3,282 +3,2231 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <title>SHOTCRAFT — Skip the studio. Ship the campaign.</title>
-<meta name="description" content="ShotCraft replaces your product photoshoot — one photo becomes a full commercial campaign in minutes.">
+
+<meta
+  name="description"
+  content="ShotCraft replaces your product photoshoot — one photo becomes a full commercial campaign in minutes."
+>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
 :root{
-  --bg:#f4f2ed;--paper:#fbfaf7;--ink:#151615;--muted:#74756f;--line:#d8d6cf;
-  --dark:#171817;--dark2:#20211f;--dark3:#2a2b28;--white:#f6f5ef;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;overflow-x:hidden;max-width:100vw}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-a{text-decoration:none;color:inherit}button,input,select{font:inherit}button{cursor:pointer}
-.mono{font:10px "DM Mono",monospace;letter-spacing:.16em;text-transform:uppercase}
-nav{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;position:fixed;top:0;width:100%;z-index:50;background:rgba(244,242,237,.78);backdrop-filter:blur(24px)}
-.logo{font-weight:800;letter-spacing:.18em;font-size:13px}.logo span{opacity:.35;font-weight:500}
-.navlinks{display:flex;gap:30px;color:#72736d;font-size:12px}.navlinks a:hover{color:#111}
-.navcta{border:1px solid #b8b7b0;padding:10px 16px;border-radius:999px;font-size:11px;background:#fbfaf7;transition:.2s}.navcta:hover{background:#171817;color:#fff;transform:translateY(-1px)}
-
-/* ---- HERO: resized for a calmer, premium scale (was clamp 58–132px) ---- */
-.hero{min-height:100svh;padding:150px 5vw 80px;display:grid;grid-template-columns:1.05fr .95fr;gap:4vw;align-items:center;border-bottom:1px solid var(--line);position:relative}
-.hero:after{content:"";position:absolute;right:8%;top:72px;height:calc(100% - 72px);width:1px;background:linear-gradient(transparent,#c7c5be,transparent);opacity:.7}
-.kicker{color:#777872;margin-bottom:26px}
-.hero h1{font-size:clamp(48px,6.6vw,104px);line-height:.96;letter-spacing:-.03em;font-weight:800;max-width:640px}
-.hero h1 .fade{color:#9a9b95}
-.hero-copy{margin-top:30px;max-width:460px;color:#6f706b;font-size:15px;line-height:1.75}
-.actions{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;border:1px solid #bcbab3;border-radius:999px;padding:14px 22px;font-size:12px;background:rgba(255,255,255,.3);transition:.25s;white-space:nowrap}
-.btn.primary{background:#181918;color:#fff;border-color:#181918}.btn:hover{transform:translateY(-2px);box-shadow:0 14px 35px rgba(0,0,0,.1)}
-.hero-art{position:relative;display:grid;place-items:center;aspect-ratio:4/5;max-width:520px;width:100%;margin:auto}
-.halo{position:absolute;width:92%;aspect-ratio:1;border-radius:50%;border:1px solid #d0cec7;box-shadow:inset 0 0 80px rgba(0,0,0,.025),0 0 100px rgba(0,0,0,.04)}
-.halo:before,.halo:after{content:"";position:absolute;border:1px solid #d8d6cf;border-radius:50%}.halo:before{inset:9%}.halo:after{inset:20%}
-.product-card{width:min(390px,73%);aspect-ratio:4/5;position:relative;z-index:3;overflow:hidden;border:1px solid #cccac2;box-shadow:0 45px 110px rgba(31,32,30,.2);background:
-radial-gradient(circle at 66% 18%,rgba(255,255,255,.7),transparent 27%),
-linear-gradient(145deg,#e9e7df,#a8aaa5 47%,#252724 100%)}
-.product-card:before{content:"";position:absolute;width:52%;height:58%;left:25%;top:18%;border-radius:46% 54% 42% 48%;transform:rotate(-9deg);background:linear-gradient(135deg,#faf9f3,#c4c6c0 42%,#777973 68%,#242624 100%);box-shadow:45px 55px 75px rgba(0,0,0,.35)}
-.product-card:after{content:"SHOTCRAFT / PRODUCT 01";position:absolute;bottom:14px;left:16px;color:#f3f2ed;font:9px "DM Mono";letter-spacing:.16em;text-shadow:0 1px 5px #000}
-.scan{position:absolute;z-index:5;width:370px;height:1px;background:linear-gradient(90deg,transparent,#111,transparent);opacity:.42;animation:scan 4.5s ease-in-out infinite}
-@keyframes scan{0%,100%{transform:translateY(-200px);opacity:0}30%,70%{opacity:.45}50%{transform:translateY(200px)}}
-.float{position:absolute;z-index:8;border:1px solid #c7c5be;background:rgba(251,250,247,.84);backdrop-filter:blur(14px);padding:11px 13px;color:#555650;font:9px "DM Mono";letter-spacing:.1em;box-shadow:0 12px 30px rgba(0,0,0,.06);white-space:nowrap}
-.f1{top:8%;left:0}.f2{right:0;top:27%}.f3{bottom:9%;left:9%}
-.marquee{border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:17px 0;color:#858680;background:#e9e7e1}
-.track{display:inline-block;animation:scroll 32s linear infinite}.track span{margin:0 35px}@keyframes scroll{to{transform:translateX(-50%)}}
-.section{padding:120px 5vw;border-bottom:1px solid var(--line)}
-.section-head{display:grid;grid-template-columns:1fr 2fr;gap:5vw;margin-bottom:62px}
-.eyebrow{color:#777872}.section h2{font-size:clamp(34px,3.8vw,60px);line-height:1.08;letter-spacing:-.015em;font-weight:600;max-width:820px}
-.manifesto,.features{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#d1cfc8}
-.manifesto>div{background:var(--paper);min-height:340px;padding:36px}.manifesto h3{font-size:28px;letter-spacing:-.015em;margin-top:105px}.manifesto p{color:#777872;font-size:13px;line-height:1.7;max-width:450px;margin-top:14px}
-.features{grid-template-columns:repeat(3,1fr)}.card{background:var(--paper);padding:32px;min-height:300px;position:relative}.card:after{content:"↗";position:absolute;right:26px;top:26px;color:#8c8d87}.num{color:#858680}.card h3{font-size:22px;letter-spacing:-.015em;margin:75px 0 13px}.card p{color:#777872;font-size:13px;line-height:1.7}
-.studio{background:linear-gradient(180deg,#e9e7e1,#f4f2ed)}
-.app{border:1px solid #3d3e3a;background:var(--dark2);min-height:670px;display:grid;grid-template-columns:255px 1fr;box-shadow:0 38px 100px rgba(24,25,23,.16);overflow:hidden}
-.side{border-right:1px solid #3c3d39;padding:25px;color:#e8e8e3}.side-title{font-size:12px;letter-spacing:.12em;margin-bottom:35px}
-.control{margin-bottom:21px}.control label{display:block;color:#898b85;font:9px "DM Mono";letter-spacing:.13em;text-transform:uppercase;margin-bottom:8px}
-.select-real,.file-input{width:100%;border:1px solid #3c3d39;padding:12px;color:#d8d8d3;font-size:11px;background:#282925}
-.file-input{padding:10px}.file-input::file-selector-button{border:0;background:#eee;color:#171817;border-radius:999px;padding:7px 10px;margin-right:8px;font-size:10px;cursor:pointer}
-.generate{width:100%;margin-top:8px;background:#f1f0eb;color:#171817;border-color:#f1f0eb}
-.preview{position:relative;margin:18px;min-height:625px;background:radial-gradient(circle at 68% 22%,#777a74,#353733 40%,#171817 82%);display:grid;place-items:center;overflow:hidden;border:1px solid #3e403b}
-.preview:before{content:"";width:275px;height:410px;border-radius:48% 52% 42% 47%;background:linear-gradient(135deg,#faf9f4,#bfc1bb 43%,#292b29 79%);transform:rotate(-8deg);box-shadow:70px 55px 100px #080908;transition:.5s}
-.preview.has-image:before{display:none}.preview img{display:none;max-width:72%;max-height:78%;object-fit:contain;z-index:2;filter:drop-shadow(35px 40px 55px rgba(0,0,0,.5))}
-.preview.has-image img{display:block}
-.preview .label{position:absolute;top:18px;left:18px;color:#a6a8a1}.preview .status{position:absolute;right:18px;top:18px;color:#d4d5cf}
-.interface-top{position:absolute;top:48px;left:50%;transform:translateX(-50%);z-index:4;display:flex;gap:7px}.pill{border:1px solid #676964;background:rgba(20,21,20,.68);color:#d4d5cf;padding:7px 10px;font:8px "DM Mono";letter-spacing:.12em}
-.credits{position:absolute;right:18px;bottom:46px;z-index:4;background:rgba(17,18,17,.8);border:1px solid #555751;padding:12px 14px;color:#d9dad5;font:9px "DM Mono";letter-spacing:.1em}.credits b{font-size:13px}
-.generating{position:absolute;inset:0;background:rgba(12,13,12,.72);backdrop-filter:blur(7px);display:none;z-index:10;place-items:center;text-align:center;color:#fff}.generating.show{display:grid}.orb{width:75px;height:75px;border-radius:50%;border:1px solid #aaa;box-shadow:0 0 50px rgba(255,255,255,.22);animation:pulse 1.2s ease-in-out infinite;margin:auto auto 18px}
-@keyframes pulse{50%{transform:scale(1.18);opacity:.45}}
-.output-section{padding-top:90px}.output-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.output{aspect-ratio:4/5;background:#dddcd6;border:1px solid #cbc9c2;position:relative;overflow:hidden}.output:nth-child(1){background:radial-gradient(circle at 60% 20%,#fff,#b5b7b1 45%,#343633)}.output:nth-child(2){background:linear-gradient(145deg,#ebe9e1,#aaa,#292a28)}.output:nth-child(3){background:radial-gradient(circle at 30% 70%,#fff,#c9cac5 35%,#555751)}.output:nth-child(4){background:linear-gradient(160deg,#f8f7f1,#c3c5bf 40%,#444641)}
-.output:before{content:"";position:absolute;width:42%;height:52%;left:29%;top:22%;border-radius:47%;background:linear-gradient(135deg,#f7f6f1,#aaa,#252725);transform:rotate(-8deg);box-shadow:30px 35px 55px rgba(0,0,0,.28)}
-.output span{position:absolute;left:12px;top:12px;font:9px "DM Mono";letter-spacing:.12em;color:#fff;text-shadow:0 1px 4px #000}
-.pricing{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#d1cfc8}.price{background:var(--paper);padding:32px;min-height:410px}.price.featured{background:#20211f;color:#f4f3ee}.price .small{color:#7d7e78;font:9px "DM Mono";letter-spacing:.14em}.featured .small{color:#a9aaa4}.price h3{font-size:23px;letter-spacing:-.01em;margin:20px 0}.amount{font-size:40px;letter-spacing:-.01em}.vs-line{font-size:11px;margin:-6px 0 16px;font-weight:600}.price p{font-size:11px;line-height:1.6;color:#777872;margin:10px 0 25px}.featured p{color:#a3a49e}.price ul{list-style:none;font-size:11px;line-height:2.25;color:#74756f}.featured ul{color:#c8c9c3}.price li:before{content:"— ";opacity:.5}
-.next{background:#181918;color:#f1f0eb}.next .section-head .eyebrow{color:#8e908a}.next h2{max-width:820px}.roadmap{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#3d3e3a}.step{background:#20211f;padding:30px;min-height:230px}.step .num{color:#999b95}.step h3{margin:65px 0 12px;font-size:20px;letter-spacing:-.015em}.step p{color:#a2a49d;font-size:12px;line-height:1.7}
-.cta{min-height:64svh;display:grid;place-items:center;text-align:center;padding:110px 5vw;background:radial-gradient(circle at 50% 42%,#fff,#e6e4de 58%)}.cta h2{font-size:clamp(40px,5.6vw,84px);line-height:1.02;letter-spacing:-.02em}.cta p{color:#777872;margin:28px auto;max-width:500px;line-height:1.7;font-size:13px}
-footer{padding:25px 5vw;display:flex;justify-content:space-between;color:#777872;font:9px "DM Mono";letter-spacing:.1em}
-.toast{position:fixed;right:22px;bottom:22px;z-index:90;background:#1d1e1c;color:#fff;padding:13px 17px;border-radius:999px;font:10px "DM Mono";letter-spacing:.08em;transform:translateY(80px);opacity:0;transition:.3s;max-width:calc(100vw - 44px)}.toast.show{transform:none;opacity:1}
-.modal{position:fixed;inset:0;background:rgba(10,11,10,.68);backdrop-filter:blur(12px);display:none;place-items:center;z-index:80;padding:20px}.modal.show{display:grid}.modal-box{width:min(460px,100%);background:#f7f6f1;padding:32px;box-shadow:0 35px 100px rgba(0,0,0,.3)}.modal-box h3{font-size:28px;letter-spacing:-.02em}.modal-box p{font-size:12px;color:#777872;line-height:1.6;margin:10px 0 24px}.modal-box input{width:100%;padding:14px;border:1px solid #c9c7c0;background:#fff;margin-bottom:10px;outline:none}.close{float:right;font-size:20px}
-
-/* ---- Tablet ---- */
-@media(max-width:1000px){
- .hero{grid-template-columns:1fr;padding-top:120px;gap:0}.hero:after{display:none}
- .hero h1{max-width:100%}
- .hero-art{max-width:440px;margin:40px auto 0}
- .section-head{grid-template-columns:1fr;gap:20px}.features,.pricing,.roadmap{grid-template-columns:repeat(2,1fr)}
- .app{grid-template-columns:1fr}.side{border-right:0;border-bottom:1px solid #3d3e3a}.preview{min-height:480px}
- .output-grid{grid-template-columns:repeat(2,1fr)}
+  --bg:#f4f2ed;
+  --paper:#fbfaf7;
+  --ink:#151615;
+  --muted:#74756f;
+  --line:#d8d6cf;
+  --dark:#171817;
+  --dark2:#20211f;
+  --dark3:#2a2b28;
+  --white:#f6f5ef;
 }
 
-/* ---- Mobile: rebuilt so nothing overflows and the hero reads calm, not shouty ---- */
-@media(max-width:650px){
- nav{height:60px;padding:0 16px}.navlinks{display:none}.logo{font-size:12px}.navcta{padding:8px 12px;font-size:10px}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
- .hero{padding:96px 20px 50px;min-height:auto;text-align:left}
- .hero h1{font-size:clamp(40px,12vw,56px);line-height:1.0;letter-spacing:-.02em}
- .hero-copy{font-size:13.5px;margin-top:20px;max-width:100%}
- .actions{margin-top:26px}.btn{flex:1;min-width:0}
+html{
+  scroll-behavior:smooth;
+}
 
- .hero-art{margin-top:38px;max-width:100%;aspect-ratio:4/5}
- .product-card{width:64%}
- .float{font-size:7.5px;padding:8px 9px}
- .f1{left:0;top:4%}.f2{right:0;top:24%}.f3{left:4%;bottom:6%}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Manrope,system-ui,sans-serif;
+  overflow-x:hidden;
+  max-width:100vw;
+}
 
- .marquee{padding:13px 0}.marquee .mono{font-size:9px}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:100;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
- .section{padding:64px 20px}.section-head{margin-bottom:34px}
- .section h2{font-size:clamp(28px,8vw,38px);line-height:1.12}
+a{
+  text-decoration:none;
+  color:inherit;
+}
 
- .manifesto,.features,.pricing,.roadmap{grid-template-columns:1fr}
- .manifesto>div{min-height:0;padding:24px}.manifesto h3{margin-top:56px;font-size:23px}
- .card{min-height:0;padding:24px}.card h3{margin:56px 0 12px;font-size:20px}
+button,
+input,
+select{
+  font:inherit;
+}
 
- .app{min-height:0}.side{padding:18px}
- .preview{margin:8px;min-height:420px}
- .preview:before{width:190px;height:284px}
- .interface-top{top:32px}.pill{padding:5px 7px;font-size:7px}
- .credits{right:10px;bottom:18px}
- .preview img{max-width:76%;max-height:70%}
+button{
+  cursor:pointer;
+}
 
- .output-grid{grid-template-columns:repeat(2,1fr);gap:8px}.output-section{padding-top:52px}
+.mono{
+  font:10px "DM Mono",monospace;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
 
- .price{min-height:0;padding:22px}.amount{font-size:34px}
- .step{min-height:0;padding:24px}.step h3{margin:44px 0 10px}
+nav{
+  height:72px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 5vw;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:50;
+  background:rgba(244,242,237,.78);
+  backdrop-filter:blur(24px);
+}
 
- .cta{min-height:auto;padding:70px 20px}.cta h2{font-size:clamp(30px,10vw,48px)}.cta p{font-size:12.5px}
+.logo{
+  font-weight:800;
+  letter-spacing:.18em;
+  font-size:13px;
+}
 
- footer{padding:20px;gap:10px;flex-wrap:wrap;font-size:8.5px}
+.logo span{
+  opacity:.35;
+  font-weight:500;
+}
 
- .toast{left:12px;right:12px;text-align:center;bottom:12px}
- .modal-box{padding:24px}.modal-box h3{font-size:22px}
+.navlinks{
+  display:flex;
+  gap:30px;
+  color:#72736d;
+  font-size:12px;
+}
+
+.navlinks a:hover{
+  color:#111;
+}
+
+.navcta{
+  border:1px solid #b8b7b0;
+  padding:10px 16px;
+  border-radius:999px;
+  font-size:11px;
+  background:#fbfaf7;
+  transition:.2s;
+}
+
+.navcta:hover{
+  background:#171817;
+  color:#fff;
+  transform:translateY(-1px);
+}
+
+.hero{
+  min-height:100svh;
+  padding:150px 5vw 80px;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:4vw;
+  align-items:center;
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  right:8%;
+  top:72px;
+  height:calc(100% - 72px);
+  width:1px;
+  background:linear-gradient(transparent,#c7c5be,transparent);
+  opacity:.7;
+}
+
+.kicker{
+  color:#777872;
+  margin-bottom:26px;
+}
+
+.hero h1{
+  font-size:clamp(48px,6.6vw,104px);
+  line-height:.96;
+  letter-spacing:-.03em;
+  font-weight:800;
+  max-width:640px;
+}
+
+.hero h1 .fade{
+  color:#9a9b95;
+}
+
+.hero-copy{
+  margin-top:30px;
+  max-width:460px;
+  color:#6f706b;
+  font-size:15px;
+  line-height:1.75;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:32px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  border:1px solid #bcbab3;
+  border-radius:999px;
+  padding:14px 22px;
+  font-size:12px;
+  background:rgba(255,255,255,.3);
+  transition:.25s;
+  white-space:nowrap;
+}
+
+.btn.primary{
+  background:#181918;
+  color:#fff;
+  border-color:#181918;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 35px rgba(0,0,0,.1);
+}
+
+.hero-art{
+  position:relative;
+  display:grid;
+  place-items:center;
+  aspect-ratio:4/5;
+  max-width:520px;
+  width:100%;
+  margin:auto;
+}
+
+.halo{
+  position:absolute;
+  width:92%;
+  aspect-ratio:1;
+  border-radius:50%;
+  border:1px solid #d0cec7;
+  box-shadow:
+    inset 0 0 80px rgba(0,0,0,.025),
+    0 0 100px rgba(0,0,0,.04);
+}
+
+.halo:before,
+.halo:after{
+  content:"";
+  position:absolute;
+  border:1px solid #d8d6cf;
+  border-radius:50%;
+}
+
+.halo:before{
+  inset:9%;
+}
+
+.halo:after{
+  inset:20%;
+}
+
+.product-card{
+  width:min(390px,73%);
+  aspect-ratio:4/5;
+  position:relative;
+  z-index:3;
+  overflow:hidden;
+  border:1px solid #cccac2;
+  box-shadow:0 45px 110px rgba(31,32,30,.2);
+  background:
+    radial-gradient(circle at 66% 18%,rgba(255,255,255,.7),transparent 27%),
+    linear-gradient(145deg,#e9e7df,#a8aaa5 47%,#252724 100%);
+}
+
+.product-card:before{
+  content:"";
+  position:absolute;
+  width:52%;
+  height:58%;
+  left:25%;
+  top:18%;
+  border-radius:46% 54% 42% 48%;
+  transform:rotate(-9deg);
+  background:
+    linear-gradient(
+      135deg,
+      #faf9f3,
+      #c4c6c0 42%,
+      #777973 68%,
+      #242624 100%
+    );
+  box-shadow:45px 55px 75px rgba(0,0,0,.35);
+}
+
+.product-card:after{
+  content:"SHOTCRAFT / PRODUCT 01";
+  position:absolute;
+  bottom:14px;
+  left:16px;
+  color:#f3f2ed;
+  font:9px "DM Mono";
+  letter-spacing:.16em;
+  text-shadow:0 1px 5px #000;
+}
+
+.scan{
+  position:absolute;
+  z-index:5;
+  width:370px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#111,transparent);
+  opacity:.42;
+  animation:scan 4.5s ease-in-out infinite;
+}
+
+@keyframes scan{
+  0%,100%{
+    transform:translateY(-200px);
+    opacity:0;
+  }
+
+  30%,70%{
+    opacity:.45;
+  }
+
+  50%{
+    transform:translateY(200px);
+  }
+}
+
+.float{
+  position:absolute;
+  z-index:8;
+  border:1px solid #c7c5be;
+  background:rgba(251,250,247,.84);
+  backdrop-filter:blur(14px);
+  padding:11px 13px;
+  color:#555650;
+  font:9px "DM Mono";
+  letter-spacing:.1em;
+  box-shadow:0 12px 30px rgba(0,0,0,.06);
+  white-space:nowrap;
+}
+
+.f1{
+  top:8%;
+  left:0;
+}
+
+.f2{
+  right:0;
+  top:27%;
+}
+
+.f3{
+  bottom:9%;
+  left:9%;
+}
+
+.marquee{
+  border-bottom:1px solid var(--line);
+  overflow:hidden;
+  white-space:nowrap;
+  padding:17px 0;
+  color:#858680;
+  background:#e9e7e1;
+}
+
+.track{
+  display:inline-block;
+  animation:scroll 32s linear infinite;
+}
+
+.track span{
+  margin:0 35px;
+}
+
+@keyframes scroll{
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+.section{
+  padding:120px 5vw;
+  border-bottom:1px solid var(--line);
+}
+
+.section-head{
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  gap:5vw;
+  margin-bottom:62px;
+}
+
+.eyebrow{
+  color:#777872;
+}
+
+.section h2{
+  font-size:clamp(34px,3.8vw,60px);
+  line-height:1.08;
+  letter-spacing:-.015em;
+  font-weight:600;
+  max-width:820px;
+}
+
+.manifesto,
+.features{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1px;
+  background:#d1cfc8;
+}
+
+.manifesto>div{
+  background:var(--paper);
+  min-height:340px;
+  padding:36px;
+}
+
+.manifesto h3{
+  font-size:28px;
+  letter-spacing:-.015em;
+  margin-top:105px;
+}
+
+.manifesto p{
+  color:#777872;
+  font-size:13px;
+  line-height:1.7;
+  max-width:450px;
+  margin-top:14px;
+}
+
+.features{
+  grid-template-columns:repeat(3,1fr);
+}
+
+.card{
+  background:var(--paper);
+  padding:32px;
+  min-height:300px;
+  position:relative;
+}
+
+.card:after{
+  content:"↗";
+  position:absolute;
+  right:26px;
+  top:26px;
+  color:#8c8d87;
+}
+
+.num{
+  color:#858680;
+}
+
+.card h3{
+  font-size:22px;
+  letter-spacing:-.015em;
+  margin:75px 0 13px;
+}
+
+.card p{
+  color:#777872;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.studio{
+  background:linear-gradient(180deg,#e9e7e1,#f4f2ed);
+}
+
+.app{
+  border:1px solid #3d3e3a;
+  background:var(--dark2);
+  min-height:670px;
+  display:grid;
+  grid-template-columns:255px 1fr;
+  box-shadow:0 38px 100px rgba(24,25,23,.16);
+  overflow:hidden;
+}
+
+.side{
+  border-right:1px solid #3c3d39;
+  padding:25px;
+  color:#e8e8e3;
+}
+
+.side-title{
+  font-size:12px;
+  letter-spacing:.12em;
+  margin-bottom:35px;
+}
+
+.control{
+  margin-bottom:21px;
+}
+
+.control label{
+  display:block;
+  color:#898b85;
+  font:9px "DM Mono";
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+.select-real,
+.file-input{
+  width:100%;
+  border:1px solid #3c3d39;
+  padding:12px;
+  color:#d8d8d3;
+  font-size:11px;
+  background:#282925;
+}
+
+.file-input{
+  padding:10px;
+}
+
+.file-input::file-selector-button{
+  border:0;
+  background:#eee;
+  color:#171817;
+  border-radius:999px;
+  padding:7px 10px;
+  margin-right:8px;
+  font-size:10px;
+  cursor:pointer;
+}
+
+.generate{
+  width:100%;
+  margin-top:8px;
+  background:#f1f0eb;
+  color:#171817;
+  border-color:#f1f0eb;
+}
+
+.preview{
+  position:relative;
+  margin:18px;
+  min-height:625px;
+  background:
+    radial-gradient(circle at 68% 22%,#777a74,#353733 40%,#171817 82%);
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  border:1px solid #3e403b;
+}
+
+.preview:before{
+  content:"";
+  width:275px;
+  height:410px;
+  border-radius:48% 52% 42% 47%;
+  background:
+    linear-gradient(
+      135deg,
+      #faf9f4,
+      #bfc1bb 43%,
+      #292b29 79%
+    );
+  transform:rotate(-8deg);
+  box-shadow:70px 55px 100px #080908;
+  transition:.5s;
+}
+
+.preview.has-image:before{
+  display:none;
+}
+
+.preview img{
+  display:none;
+  max-width:72%;
+  max-height:78%;
+  object-fit:contain;
+  z-index:2;
+  filter:drop-shadow(35px 40px 55px rgba(0,0,0,.5));
+}
+
+.preview.has-image img{
+  display:block;
+}
+
+.preview .label{
+  position:absolute;
+  top:18px;
+  left:18px;
+  color:#a6a8a1;
+}
+
+.preview .status{
+  position:absolute;
+  right:18px;
+  top:18px;
+  color:#d4d5cf;
+}
+
+.interface-top{
+  position:absolute;
+  top:48px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:4;
+  display:flex;
+  gap:7px;
+}
+
+.pill{
+  border:1px solid #676964;
+  background:rgba(20,21,20,.68);
+  color:#d4d5cf;
+  padding:7px 10px;
+  font:8px "DM Mono";
+  letter-spacing:.12em;
+}
+
+.credits{
+  position:absolute;
+  right:18px;
+  bottom:46px;
+  z-index:4;
+  background:rgba(17,18,17,.8);
+  border:1px solid #555751;
+  padding:12px 14px;
+  color:#d9dad5;
+  font:9px "DM Mono";
+  letter-spacing:.1em;
+}
+
+.credits b{
+  font-size:13px;
+}
+
+.generating{
+  position:absolute;
+  inset:0;
+  background:rgba(12,13,12,.72);
+  backdrop-filter:blur(7px);
+  display:none;
+  z-index:10;
+  place-items:center;
+  text-align:center;
+  color:#fff;
+}
+
+.generating.show{
+  display:grid;
+}
+
+.orb{
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  border:1px solid #aaa;
+  box-shadow:0 0 50px rgba(255,255,255,.22);
+  animation:pulse 1.2s ease-in-out infinite;
+  margin:auto auto 18px;
+}
+
+@keyframes pulse{
+  50%{
+    transform:scale(1.18);
+    opacity:.45;
+  }
+}
+
+.output-section{
+  padding-top:90px;
+}
+
+.pricing{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:#d1cfc8;
+}
+
+.price{
+  background:var(--paper);
+  padding:32px;
+  min-height:410px;
+}
+
+.price.featured{
+  background:#20211f;
+  color:#f4f3ee;
+}
+
+.price .small{
+  color:#7d7e78;
+  font:9px "DM Mono";
+  letter-spacing:.14em;
+}
+
+.featured .small{
+  color:#a9aaa4;
+}
+
+.price h3{
+  font-size:23px;
+  letter-spacing:-.01em;
+  margin:20px 0;
+}
+
+.amount{
+  font-size:40px;
+  letter-spacing:-.03em;
+}
+
+.price p{
+  color:#777872;
+  font-size:12px;
+  line-height:1.7;
+  margin:18px 0;
+}
+
+.price.featured p{
+  color:#aaa;
+}
+
+.price ul{
+  list-style:none;
+  margin-top:20px;
+}
+
+.price li{
+  padding:9px 0;
+  border-top:1px solid #d8d6cf;
+  font-size:12px;
+}
+
+.price.featured li{
+  border-color:#3d3e3a;
+}
+
+.vs-line{
+  font-size:10px;
+  margin-top:8px;
+}
+
+.next{
+  background:#e9e7e1;
+}
+
+.roadmap{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:#d1cfc8;
+}
+
+.step{
+  background:var(--paper);
+  padding:32px;
+  min-height:260px;
+}
+
+.step h3{
+  font-size:22px;
+  margin:70px 0 12px;
+}
+
+.step p{
+  color:#777872;
+  font-size:12px;
+  line-height:1.7;
+}
+
+.cta{
+  padding:150px 5vw;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  background:#f4f2ed;
+}
+
+.cta h2{
+  font-size:clamp(50px,7vw,100px);
+  line-height:.95;
+  letter-spacing:-.04em;
+}
+
+.cta h2 em{
+  font-family:Georgia,serif;
+  font-weight:400;
+}
+
+.cta p{
+  max-width:560px;
+  margin:28px auto;
+  color:#777872;
+  font-size:14px;
+  line-height:1.8;
+}
+
+footer{
+  padding:25px 5vw;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  font:9px "DM Mono";
+  letter-spacing:.14em;
+  color:#777872;
+}
+
+.toast{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  z-index:200;
+  background:#171817;
+  color:#fff;
+  padding:13px 17px;
+  font:10px "DM Mono";
+  letter-spacing:.1em;
+  transform:translateY(20px);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(8px);
+  display:none;
+  place-items:center;
+  z-index:300;
+  padding:20px;
+}
+
+.modal.show{
+  display:grid;
+}
+
+.modal-box{
+  width:min(440px,100%);
+  background:#fbfaf7;
+  border:1px solid #cccac2;
+  padding:35px;
+  position:relative;
+  box-shadow:0 30px 100px rgba(0,0,0,.25);
+}
+
+.modal-box h3{
+  font-size:30px;
+  margin:18px 0 10px;
+}
+
+.modal-box p{
+  color:#777872;
+  font-size:13px;
+  line-height:1.7;
+  margin-bottom:20px;
+}
+
+.modal-box input{
+  width:100%;
+  padding:14px;
+  border:1px solid #cccac2;
+  background:#fff;
+  margin-bottom:10px;
+  outline:none;
+}
+
+.close{
+  position:absolute;
+  right:18px;
+  top:14px;
+  border:0;
+  background:none;
+  font-size:26px;
+  color:#777;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .navlinks{
+    display:none;
+  }
+
+  .hero{
+    grid-template-columns:1fr;
+    padding-top:130px;
+  }
+
+  .hero:after{
+    display:none;
+  }
+
+  .hero-art{
+    margin-top:20px;
+  }
+
+  .section-head{
+    grid-template-columns:1fr;
+    gap:15px;
+  }
+
+  .manifesto,
+  .features{
+    grid-template-columns:1fr;
+  }
+
+  .app{
+    grid-template-columns:1fr;
+  }
+
+  .side{
+    border-right:0;
+    border-bottom:1px solid #3c3d39;
+  }
+
+  .pricing{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .roadmap{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:600px){
+
+  nav{
+    padding:0 20px;
+  }
+
+  .hero{
+    padding-left:20px;
+    padding-right:20px;
+  }
+
+  .section{
+    padding:80px 20px;
+  }
+
+  .hero h1{
+    font-size:48px;
+  }
+
+  .product-card{
+    width:70%;
+  }
+
+  .float{
+    font-size:8px;
+  }
+
+  .pricing{
+    grid-template-columns:1fr;
+  }
+
+  .roadmap{
+    grid-template-columns:1fr;
+  }
+
+  .preview{
+    margin:12px;
+    min-height:480px;
+  }
+
+  .preview img{
+    max-width:85%;
+    max-height:70%;
+  }
+
+  footer{
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .interface-top{
+    transform:translateX(-50%) scale(.8);
+  }
 }
 </style>
 </head>
+
 <body>
+
 <nav>
-  <a class="logo" href="#">SHOTCRAFT <span>/ AI</span></a>
-  <div class="navlinks"><a href="#studio">Studio</a><a href="#why">Why ShotCraft</a><a href="#pricing">Pricing</a></div>
-  <a class="navcta" href="#try">Try it free ↗</a>
+  <div class="logo">
+    SHOTCRAFT <span>/ AI</span>
+  </div>
+
+  <div class="navlinks">
+    <a href="#why">Why ShotCraft</a>
+    <a href="#studio">Studio</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#try">Try it</a>
+  </div>
+
+  <a class="navcta" href="#studio">
+    Open Studio ↗
+  </a>
 </nav>
 
 <main>
+
 <section class="hero">
+
   <div>
-    <div class="kicker mono">STUDIO REPLACEMENT · 2026</div>
-    <h1>Skip the studio.<br><span class="fade">Ship the campaign.</span></h1>
-    <p class="hero-copy">A single product photoshoot costs $500–$2,000 and takes weeks to schedule. ShotCraft replaces it — upload one product photo, direct the scene, lighting and format, and get a full commercial campaign in minutes.</p>
+    <div class="kicker mono">
+      AI PRODUCT CREATIVE ENGINE
+    </div>
+
+    <h1>
+      Skip the studio.
+      <span class="fade">
+        Ship the campaign.
+      </span>
+    </h1>
+
+    <p class="hero-copy">
+      Give ShotCraft one product photo and get a premium,
+      campaign-ready commercial creative in minutes.
+      No studio. No models. No complicated prompting.
+    </p>
+
     <div class="actions">
-      <a class="btn primary" href="#try">Replace your next shoot <b>↗</b></a>
-      <a class="btn" href="#studio">Enter the studio</a>
+      <a class="btn primary" href="#studio">
+        Generate your first creative ↗
+      </a>
+
+      <a class="btn" href="#why">
+        See how it works
+      </a>
     </div>
   </div>
+
   <div class="hero-art">
-    <div class="halo"></div><div class="scan"></div>
+
+    <div class="halo"></div>
+
     <div class="product-card"></div>
-    <div class="float f1">01 / PRODUCT LOCK</div>
-    <div class="float f2">AI DIRECTED · 4K</div>
-    <div class="float f3">● LIVE · GENERATING</div>
+
+    <div class="scan"></div>
+
+    <div class="float f1">
+      PRODUCT LOCK
+    </div>
+
+    <div class="float f2">
+      SCENE DIRECTOR
+    </div>
+
+    <div class="float f3">
+      CAMPAIGN READY
+    </div>
+
   </div>
+
 </section>
 
-<div class="marquee"><div class="track">
-<span>NO STUDIO</span><span>NO MODELS</span><span>NO CREW</span><span>NO WAITING</span><span>COMMERCIAL QUALITY</span><span>PRODUCT CONSISTENCY</span>
-<span>NO STUDIO</span><span>NO MODELS</span><span>NO CREW</span><span>NO WAITING</span><span>COMMERCIAL QUALITY</span><span>PRODUCT CONSISTENCY</span>
-</div></div>
+<div class="marquee">
+  <div class="track">
+    <span>PRODUCT LOCK</span>
+    <span>SCENE DIRECTOR</span>
+    <span>NO STUDIO</span>
+    <span>CAMPAIGN READY</span>
+    <span>EVERY FORMAT</span>
+    <span>PRODUCT LOCK</span>
+    <span>SCENE DIRECTOR</span>
+    <span>NO STUDIO</span>
+    <span>CAMPAIGN READY</span>
+    <span>EVERY FORMAT</span>
+  </div>
+</div>
 
 <section class="section" id="why">
-  <div class="section-head"><div class="eyebrow mono">01 — THE NEW SHOOT</div><h2>Why book a studio when you can direct one?</h2></div>
-  <div class="manifesto">
-    <div><div class="mono">OLD WORLD</div><h3>Studio. Models. Location. Crew.</h3><p>$500–$2,000 per shoot, 1–2 weeks turnaround, and you do it all again for every new product or season.</p></div>
-    <div><div class="mono">SHOTCRAFT</div><h3>One product. Infinite worlds.</h3><p>Lock the product, then reinvent the world around it — instantly, repeatedly and at a fraction of the cost.</p></div>
+
+  <div class="section-head">
+    <div class="eyebrow mono">
+      01 — WHY SHOTCRAFT
+    </div>
+
+    <h2>
+      Your product is already the asset.
+      ShotCraft turns it into the campaign.
+    </h2>
   </div>
+
+  <div class="manifesto">
+
+    <div>
+      <div class="num mono">01 / INPUT</div>
+
+      <h3>
+        One product photo.
+      </h3>
+
+      <p>
+        Upload the product image you already have.
+        ShotCraft uses it as the visual source for the creative.
+      </p>
+    </div>
+
+    <div>
+      <div class="num mono">02 / OUTPUT</div>
+
+      <h3>
+        A commercial world.
+      </h3>
+
+      <p>
+        Choose the shot, environment, lighting and format.
+        ShotCraft builds the scene around your product.
+      </p>
+    </div>
+
+  </div>
+
 </section>
 
 <section class="section">
-  <div class="section-head"><div class="eyebrow mono">02 — CONTROL</div><h2>Not another prompt box. A real creative direction system.</h2></div>
-  <div class="features">
-    <div class="card"><div class="num mono">01</div><h3>Product Lock</h3><p>Preserve your product's identity while changing environments, compositions and campaign worlds around it.</p></div>
-    <div class="card"><div class="num mono">02</div><h3>Scene Director</h3><p>Choose luxury, editorial, lifestyle, festive, minimal or cinematic directions without prompt engineering.</p></div>
-    <div class="card"><div class="num mono">03</div><h3>Every Format</h3><p>Generate 1:1, 4:5, 9:16 and 16:9 outputs from the same creative direction.</p></div>
+
+  <div class="section-head">
+    <div class="eyebrow mono">
+      02 — THE SYSTEM
+    </div>
+
+    <h2>
+      Built around the problem D2C brands
+      actually have.
+    </h2>
   </div>
+
+  <div class="features">
+
+    <div class="card">
+      <div class="num mono">01</div>
+
+      <h3>
+        Product Lock
+      </h3>
+
+      <p>
+        Keep the product as the hero.
+        Preserve the important visual details instead of
+        redesigning the product unnecessarily.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="num mono">02</div>
+
+      <h3>
+        Scene Director
+      </h3>
+
+      <p>
+        Select a direction instead of writing complicated prompts.
+        ShotCraft handles the creative translation.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="num mono">03</div>
+
+      <h3>
+        Every Format
+      </h3>
+
+      <p>
+        Generate creatives for product feeds,
+        Instagram, Reels, Stories, websites and more.
+      </p>
+    </div>
+
+  </div>
+
 </section>
 
 <section class="section studio" id="studio">
-  <div class="section-head"><div class="eyebrow mono">03 — THE STUDIO</div><h2>Direct the shot.<br>Don't prompt the machine.</h2></div>
-  <div class="app">
-    <aside class="side">
-      <div class="side-title">NEW PHOTOSHOOT</div>
-      <div class="control"><label>Product photo</label><input class="file-input" id="productInput" type="file" accept="image/*"></div>
-      <div class="control"><label>Shot type</label>
-        <select class="select-real" id="shotType">
-          <option>Luxury editorial</option><option>Minimal clean studio</option><option>Lifestyle campaign</option><option>Cinematic dark</option><option>Festive premium</option>
-        </select>
-      </div>
-      <div class="control"><label>Environment</label>
-        <select class="select-real" id="environment"><option>Architectural marble</option><option>Soft beige studio</option><option>Luxury hotel</option><option>Dark premium set</option><option>Outdoor golden hour</option></select>
-      </div>
-      <div class="control"><label>Lighting</label>
-        <select class="select-real" id="lighting"><option>Soft cinematic</option><option>Hard editorial</option><option>Golden rim light</option><option>Moody contrast</option></select>
-      </div>
-      <div class="control"><label>Output</label>
-        <select class="select-real" id="outputSpec"><option>4:5 · Instagram / Meta</option><option>9:16 · Reels / Stories</option><option>1:1 · Product feed</option><option>16:9 · Website / YouTube</option></select>
-      </div>
-      <button class="btn generate" onclick="generate()">Generate campaign ↗</button>
-    </aside>
-    <div class="preview" id="preview">
-      <div class="label mono">SHOT 01 / LIVE PREVIEW</div><div class="status mono" id="status">● READY</div>
-      <div class="interface-top"><div class="pill">PRODUCT LOCK</div><div class="pill">AI DIRECTOR</div><div class="pill">4K</div></div>
-      <img id="previewImg" alt="Uploaded product preview">
-      <div class="credits">CREDITS <b id="credits">480</b> / 500</div>
-      <div class="bottom mono" style="position:absolute;bottom:18px;left:18px;right:18px;color:#9a9c95"><span>SCENE / EDITORIAL</span><span>RATIO / 4:5</span></div>
-      <div class="generating" id="generating"><div><div class="orb"></div><div class="mono">DIRECTING YOUR CAMPAIGN</div><div style="font-size:12px;margin-top:8px;color:#aaa">PRODUCT LOCK → SCENE → LIGHT → OUTPUT</div></div></div>
+
+  <div class="section-head">
+
+    <div class="eyebrow mono">
+      03 — SHOTCRAFT STUDIO
     </div>
+
+    <h2>
+      Direct the shot.
+      Let the engine handle the rest.
+    </h2>
+
+  </div>
+
+  <div class="app">
+
+    <aside class="side">
+
+      <div class="side-title">
+        SHOTCRAFT / STUDIO
+      </div>
+
+      <div class="control">
+        <label>
+          Product
+        </label>
+
+        <input
+          class="file-input"
+          type="file"
+          id="productInput"
+          accept="image/*"
+        >
+      </div>
+
+      <div class="control">
+
+        <label>
+          Shot type
+        </label>
+
+        <select class="select-real" id="shotType">
+
+          <option>
+            Luxury product hero
+          </option>
+
+          <option>
+            Editorial close-up
+          </option>
+
+          <option>
+            Minimal catalog
+          </option>
+
+          <option>
+            Social media campaign
+          </option>
+
+          <option>
+            Premium lifestyle
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="control">
+
+        <label>
+          Environment
+        </label>
+
+        <select class="select-real" id="environment">
+
+          <option>
+            Architectural marble
+          </option>
+
+          <option>
+            Soft beige studio
+          </option>
+
+          <option>
+            Luxury hotel
+          </option>
+
+          <option>
+            Dark premium set
+          </option>
+
+          <option>
+            Outdoor golden hour
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="control">
+
+        <label>
+          Lighting
+        </label>
+
+        <select class="select-real" id="lighting">
+
+          <option>
+            Soft cinematic
+          </option>
+
+          <option>
+            Hard editorial
+          </option>
+
+          <option>
+            Golden rim light
+          </option>
+
+          <option>
+            Moody contrast
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="control">
+
+        <label>
+          Output
+        </label>
+
+        <select class="select-real" id="outputSpec">
+
+          <option>
+            4:5 · Instagram / Meta
+          </option>
+
+          <option>
+            9:16 · Reels / Stories
+          </option>
+
+          <option>
+            1:1 · Product feed
+          </option>
+
+          <option>
+            16:9 · Website / YouTube
+          </option>
+
+        </select>
+
+      </div>
+
+      <button
+        class="btn generate"
+        id="generateBtn"
+        onclick="generate()"
+      >
+        Generate creative · 4 credits ↗
+      </button>
+
+    </aside>
+
+    <div class="preview" id="preview">
+
+      <div class="label mono">
+        SHOT 01 / LIVE PREVIEW
+      </div>
+
+      <div class="status mono" id="status">
+        ● READY
+      </div>
+
+      <div class="interface-top">
+
+        <div class="pill">
+          PRODUCT LOCK
+        </div>
+
+        <div class="pill">
+          AI DIRECTOR
+        </div>
+
+        <div class="pill">
+          4K
+        </div>
+
+      </div>
+
+      <img
+        id="previewImg"
+        alt="Uploaded product preview"
+      >
+
+      <div class="credits">
+        CREDITS
+        <b id="credits">480</b>
+        / 500
+      </div>
+
+      <div
+        class="bottom mono"
+        style="
+          position:absolute;
+          bottom:18px;
+          left:18px;
+          right:18px;
+          color:#9a9c95;
+          display:flex;
+          justify-content:space-between;
+        "
+      >
+        <span>
+          SCENE / EDITORIAL
+        </span>
+
+        <span>
+          RATIO / 4:5
+        </span>
+      </div>
+
+      <div
+        class="generating"
+        id="generating"
+      >
+
+        <div>
+
+          <div class="orb"></div>
+
+          <div class="mono">
+            DIRECTING YOUR CREATIVE
+          </div>
+
+          <div
+            style="
+              font-size:12px;
+              margin-top:8px;
+              color:#aaa;
+            "
+          >
+            PRODUCT LOCK → SCENE → LIGHT → OUTPUT
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
   <div class="output-section">
-    <div class="section-head" style="margin-top:90px"><div class="eyebrow mono">04 — CAMPAIGN OUTPUT</div><h2>One direction.<br>Four ready-to-use worlds.</h2></div>
-    <div class="output-grid">
-      <div class="output"><span>01 · HERO</span></div><div class="output"><span>02 · DETAIL</span></div><div class="output"><span>03 · LIFESTYLE</span></div><div class="output"><span>04 · SOCIAL</span></div>
+
+    <div
+      class="section-head"
+      style="margin-top:90px"
+    >
+
+      <div class="eyebrow mono">
+        04 — CAMPAIGN OUTPUT
+      </div>
+
+      <h2>
+        One direction.<br>
+        Four ready-to-use worlds.
+      </h2>
+
     </div>
+
+    <div
+      style="
+        border:1px solid #cbc9c2;
+        background:#fbfaf7;
+        padding:28px;
+        color:#777872;
+        font-size:12px;
+        line-height:1.7;
+      "
+    >
+
+      <div
+        class="mono"
+        style="
+          color:#171817;
+          margin-bottom:10px;
+        "
+      >
+        V1 · SINGLE CREATIVE
+      </div>
+
+      <strong
+        style="
+          color:#171817;
+          font-size:18px;
+        "
+      >
+        One product photo → one commercial creative.
+      </strong>
+
+      <div style="margin-top:8px">
+        Campaign packs, marketing copy and video come next.
+        For now, ShotCraft is focused on getting the
+        product-preserving image generation engine right.
+      </div>
+
+    </div>
+
   </div>
+
 </section>
 
 <section class="section" id="pricing">
-  <div class="section-head"><div class="eyebrow mono">05 — PRICING</div><h2>Every plan<br>replaces a studio shoot.</h2></div>
-  <div class="pricing">
-    <div class="price"><div class="small">STARTER</div><h3>Creator</h3><div class="amount">$19<span style="font-size:14px;color:#a5a69f;margin-left:4px">/mo</span></div><div class="vs-line" style="color:#b6773f">Replaces a $500+ studio shoot</div><p>For testing the workflow and creating your first product campaigns.</p><ul><li>100 credits</li><li>1 product workspace</li><li>Standard generations</li><li>Social-ready formats</li></ul></div>
-    <div class="price featured"><div class="small">MOST POPULAR</div><h3>Growth</h3><div class="amount">$49<span style="font-size:14px;color:#9a9c95;margin-left:4px">/mo</span></div><div class="vs-line" style="color:#d7a672">Replaces 4+ studio shoots</div><p>For D2C brands producing creative every week.</p><ul><li>400 credits</li><li>5 product workspaces</li><li>Campaign presets</li><li>Priority generation</li></ul></div>
-    <div class="price"><div class="small">SCALE</div><h3>Studio</h3><div class="amount">$99<span style="font-size:14px;color:#a5a69f;margin-left:4px">/mo</span></div><div class="vs-line" style="color:#b6773f">Replaces a full monthly shoot calendar</div><p>For teams running multiple products and campaigns.</p><ul><li>1,000 credits</li><li>Unlimited projects</li><li>Brand kit</li><li>Bulk creative workflows</li></ul></div>
-    <div class="price"><div class="small">AGENCY</div><h3>Agency</h3><div class="amount">$249<span style="font-size:14px;color:#a5a69f;margin-left:4px">/mo</span></div><div class="vs-line" style="color:#b6773f">Replaces your entire studio budget</div><p>For agencies and high-volume D2C operations.</p><ul><li>3,000 credits</li><li>Multi-brand workspace</li><li>Team access</li><li>Priority support</li></ul></div>
+
+  <div class="section-head">
+
+    <div class="eyebrow mono">
+      05 — PRICING
+    </div>
+
+    <h2>
+      Every plan<br>
+      replaces a studio shoot.
+    </h2>
+
   </div>
+
+  <div class="pricing">
+
+    <div class="price">
+
+      <div class="small">
+        STARTER
+      </div>
+
+      <h3>
+        Creator
+      </h3>
+
+      <div class="amount">
+        $19
+        <span
+          style="
+            font-size:14px;
+            color:#a5a69f;
+            margin-left:4px;
+          "
+        >
+          /mo
+        </span>
+      </div>
+
+      <div
+        class="vs-line"
+        style="color:#b6773f"
+      >
+        Replaces a $500+ studio shoot
+      </div>
+
+      <p>
+        For testing the workflow and creating
+        your first product campaigns.
+      </p>
+
+      <ul>
+        <li>100 credits</li>
+        <li>1 product workspace</li>
+        <li>Standard generations</li>
+        <li>Social-ready formats</li>
+      </ul>
+
+    </div>
+
+    <div class="price featured">
+
+      <div class="small">
+        MOST POPULAR
+      </div>
+
+      <h3>
+        Growth
+      </h3>
+
+      <div class="amount">
+        $49
+        <span
+          style="
+            font-size:14px;
+            color:#9a9c95;
+            margin-left:4px;
+          "
+        >
+          /mo
+        </span>
+      </div>
+
+      <div
+        class="vs-line"
+        style="color:#d7a672"
+      >
+        Replaces 4+ studio shoots
+      </div>
+
+      <p>
+        For D2C brands producing creative every week.
+      </p>
+
+      <ul>
+        <li>400 credits</li>
+        <li>5 product workspaces</li>
+        <li>Campaign presets</li>
+        <li>Priority generation</li>
+      </ul>
+
+    </div>
+
+    <div class="price">
+
+      <div class="small">
+        SCALE
+      </div>
+
+      <h3>
+        Studio
+      </h3>
+
+      <div class="amount">
+        $99
+        <span
+          style="
+            font-size:14px;
+            color:#a5a69f;
+            margin-left:4px;
+          "
+        >
+          /mo
+        </span>
+      </div>
+
+      <div
+        class="vs-line"
+        style="color:#b6773f"
+      >
+        Replaces a full monthly shoot calendar
+      </div>
+
+      <p>
+        For teams running multiple products
+        and campaigns.
+      </p>
+
+      <ul>
+        <li>1,000 credits</li>
+        <li>Unlimited projects</li>
+        <li>Brand kit</li>
+        <li>Bulk creative workflows</li>
+      </ul>
+
+    </div>
+
+    <div class="price">
+
+      <div class="small">
+        AGENCY
+      </div>
+
+      <h3>
+        Agency
+      </h3>
+
+      <div class="amount">
+        $249
+        <span
+          style="
+            font-size:14px;
+            color:#a5a69f;
+            margin-left:4px;
+          "
+        >
+          /mo
+        </span>
+      </div>
+
+      <div
+        class="vs-line"
+        style="color:#b6773f"
+      >
+        Replaces your entire studio budget
+      </div>
+
+      <p>
+        For agencies and high-volume
+        D2C operations.
+      </p>
+
+      <ul>
+        <li>3,000 credits</li>
+        <li>Multi-brand workspace</li>
+        <li>Team access</li>
+        <li>Priority support</li>
+      </ul>
+
+    </div>
+
+  </div>
+
 </section>
 
 <section class="section next">
-  <div class="section-head"><div class="eyebrow mono">06 — WHAT COMES NEXT</div><h2>ShotCraft doesn't stop at the image.</h2></div>
-  <div class="roadmap">
-    <div class="step"><div class="num mono">V1</div><h3>Creative Engine</h3><p>Product photos, scenes, formats and campaign packs from one locked product.</p></div>
-    <div class="step"><div class="num mono">V2</div><h3>Marketing Engine</h3><p>Ad copy, hooks, headlines, captions and complete campaign concepts generated with the creative.</p></div>
-    <div class="step"><div class="num mono">V3</div><h3>Video Engine</h3><p>Turn the same campaign direction into UGC, product films, reels and motion creative.</p></div>
-    <div class="step"><div class="num mono">V4</div><h3>Growth Intelligence</h3><p>Connect ad performance and let ShotCraft learn what creative your brand should make next.</p></div>
+
+  <div class="section-head">
+
+    <div class="eyebrow mono">
+      06 — WHAT COMES NEXT
+    </div>
+
+    <h2>
+      ShotCraft doesn't stop at the image.
+    </h2>
+
   </div>
+
+  <div class="roadmap">
+
+    <div class="step">
+
+      <div class="num mono">
+        V1
+      </div>
+
+      <h3>
+        Creative Engine
+      </h3>
+
+      <p>
+        Product photos, scenes, formats and
+        campaign packs from one locked product.
+      </p>
+
+    </div>
+
+    <div class="step">
+
+      <div class="num mono">
+        V2
+      </div>
+
+      <h3>
+        Marketing Engine
+      </h3>
+
+      <p>
+        Ad copy, hooks, headlines, captions and
+        complete campaign concepts generated
+        with the creative.
+      </p>
+
+    </div>
+
+    <div class="step">
+
+      <div class="num mono">
+        V3
+      </div>
+
+      <h3>
+        Video Engine
+      </h3>
+
+      <p>
+        Turn the same campaign direction into
+        UGC, product films, reels and motion creative.
+      </p>
+
+    </div>
+
+    <div class="step">
+
+      <div class="num mono">
+        V4
+      </div>
+
+      <h3>
+        Growth Intelligence
+      </h3>
+
+      <p>
+        Connect ad performance and let ShotCraft
+        learn what creative your brand should make next.
+      </p>
+
+    </div>
+
+  </div>
+
 </section>
 
 <section class="cta" id="try">
+
   <div>
-    <div class="mono" style="color:#777872;margin-bottom:22px">STOP BOOKING STUDIOS</div>
-    <h2>Make it look<br><em>photographed.</em></h2>
-    <p>No studio. No models. No week-long wait. Upload one product photo and get a campaign-ready shoot in minutes — for a fraction of what a real shoot costs.</p>
-    <button class="btn primary" onclick="openModal()">Replace your shoot — free ↗</button>
+
+    <div
+      class="mono"
+      style="
+        color:#777872;
+        margin-bottom:22px;
+      "
+    >
+      STOP BOOKING STUDIOS
+    </div>
+
+    <h2>
+      Make it look<br>
+      <em>photographed.</em>
+    </h2>
+
+    <p>
+      No studio. No models. No week-long wait.
+      Upload one product photo and get a
+      campaign-ready shoot in minutes —
+      for a fraction of what a real shoot costs.
+    </p>
+
+    <button
+      class="btn primary"
+      onclick="openModal()"
+    >
+      Replace your shoot — free ↗
+    </button>
+
   </div>
+
 </section>
+
 </main>
 
-<footer><div>SHOTCRAFT / AI</div><div>THE STUDIO, REPLACED.</div><div>© 2026</div></footer>
+<footer>
 
-<div class="toast" id="toast">CAMPAIGN → GENERATING · 04 VARIATIONS</div>
-<div class="modal" id="modal"><div class="modal-box"><button class="close" onclick="closeModal()">×</button><div class="mono">EARLY ACCESS</div><h3>Build your first campaign.</h3><p>Enter your email and we'll keep this prototype ready for the real ShotCraft workspace.</p><input id="email" type="email" placeholder="you@brand.com"><button class="btn primary" style="width:100%" onclick="submitEmail()">Request access ↗</button></div></div>
+  <div>
+    SHOTCRAFT / AI
+  </div>
+
+  <div>
+    THE STUDIO, REPLACED.
+  </div>
+
+  <div>
+    © 2026
+  </div>
+
+</footer>
+
+<div class="toast" id="toast">
+  READY
+</div>
+
+<div class="modal" id="modal">
+
+  <div class="modal-box">
+
+    <button
+      class="close"
+      onclick="closeModal()"
+    >
+      ×
+    </button>
+
+    <div class="mono">
+      EARLY ACCESS
+    </div>
+
+    <h3>
+      Build your first campaign.
+    </h3>
+
+    <p>
+      Enter your email and we'll keep this prototype
+      ready for the real ShotCraft workspace.
+    </p>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="you@brand.com"
+    >
+
+    <button
+      class="btn primary"
+      style="width:100%"
+      onclick="submitEmail()"
+    >
+      Request access ↗
+    </button>
+
+  </div>
+
+</div>
 
 <script>
-const input=document.getElementById('productInput'), preview=document.getElementById('preview'), img=document.getElementById('previewImg');
-input.addEventListener('change',()=>{
-  const file=input.files[0]; if(!file)return;
-  img.src=URL.createObjectURL(file); preview.classList.add('has-image');
-  document.getElementById('status').textContent='● PRODUCT LOCKED';
-  toast('PRODUCT LOCKED → READY TO DIRECT');
+
+const input =
+  document.getElementById("productInput");
+
+const preview =
+  document.getElementById("preview");
+
+const img =
+  document.getElementById("previewImg");
+
+const generateBtn =
+  document.getElementById("generateBtn");
+
+
+input.addEventListener("change", () => {
+
+  const file = input.files[0];
+
+  if (!file) return;
+
+  img.src = URL.createObjectURL(file);
+
+  preview.classList.add("has-image");
+
+  document.getElementById("status").textContent =
+    "● PRODUCT LOCKED";
+
+  toast(
+    "PRODUCT LOCKED → READY TO DIRECT"
+  );
+
 });
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove('show'),2800)}
-function generate(){
-  if(!input.files[0]){toast('UPLOAD A PRODUCT PHOTO FIRST');return}
-  const g=document.getElementById('generating'),s=document.getElementById('status'),c=document.getElementById('credits');
-  g.classList.add('show');s.textContent='● GENERATING';toast('CAMPAIGN → GENERATING · 04 VARIATIONS');
-  setTimeout(()=>{g.classList.remove('show');s.textContent='● CAMPAIGN READY';c.textContent='476';toast('CAMPAIGN READY → 04 VARIATIONS');document.querySelector('.output-section').scrollIntoView({behavior:'smooth',block:'start'})},2400);
+
+
+function toast(msg){
+
+  const t =
+    document.getElementById("toast");
+
+  t.textContent = msg;
+
+  t.classList.add("show");
+
+  clearTimeout(window.tt);
+
+  window.tt =
+    setTimeout(() => {
+      t.classList.remove("show");
+    }, 3200);
+
 }
-function openModal(){document.getElementById('modal').classList.add('show')}
-function closeModal(){document.getElementById('modal').classList.remove('show')}
+
+
+function fileToDataURL(file){
+
+  return new Promise((resolve,reject) => {
+
+    const reader =
+      new FileReader();
+
+    reader.onload =
+      () => resolve(reader.result);
+
+    reader.onerror =
+      reject;
+
+    reader.readAsDataURL(file);
+
+  });
+
+}
+
+
+function getRatio(){
+
+  const value =
+    document.getElementById("outputSpec").value;
+
+  if(value.startsWith("9:16"))
+    return "9:16";
+
+  if(value.startsWith("1:1"))
+    return "1:1";
+
+  if(value.startsWith("16:9"))
+    return "16:9";
+
+  return "4:5";
+
+}
+
+
+function buildPrompt(){
+
+  const shot =
+    document.getElementById("shotType").value;
+
+  const environment =
+    document.getElementById("environment").value;
+
+  const lighting =
+    document.getElementById("lighting").value;
+
+  return `
+Create a premium commercial product photograph
+using the uploaded product as the exact product reference.
+
+Preserve the product identity, geometry, proportions,
+materials, colors, stones, details and design.
+
+Do not redesign, replace or invent the product.
+
+Shot direction: ${shot}.
+
+Environment: ${environment}.
+
+Lighting: ${lighting}.
+
+Clean luxury art direction,
+realistic materials,
+professional studio photography,
+refined composition,
+premium international D2C advertising aesthetic.
+
+The product must remain the clear hero
+and look physically photographed,
+not illustrated or CGI.
+`;
+
+}
+
+
+async function generate(){
+
+  const file =
+    input.files[0];
+
+  if(!file){
+
+    toast(
+      "UPLOAD A PRODUCT PHOTO FIRST"
+    );
+
+    return;
+  }
+
+  if(!file.type.startsWith("image/")){
+
+    toast(
+      "PLEASE UPLOAD AN IMAGE"
+    );
+
+    return;
+  }
+
+  const generating =
+    document.getElementById("generating");
+
+  const status =
+    document.getElementById("status");
+
+  const credits =
+    document.getElementById("credits");
+
+  generateBtn.disabled = true;
+
+  generateBtn.style.opacity = ".55";
+
+  generating.classList.add("show");
+
+  status.textContent =
+    "● GENERATING";
+
+  toast(
+    "CREATIVE → GENERATING · 4 CREDITS"
+  );
+
+  try{
+
+    const imageBase64 =
+      await fileToDataURL(file);
+
+    const response =
+      await fetch("/api/generate", {
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
+
+        body:JSON.stringify({
+
+          imageBase64,
+
+          prompt:
+            buildPrompt(),
+
+          tier:
+            "standard",
+
+          ratio:
+            getRatio()
+
+        })
+
+      });
+
+
+    const data =
+      await response.json();
+
+
+    if(
+      !response.ok ||
+      !data.imageUrl
+    ){
+
+      throw new Error(
+        data.error ||
+        "Generation failed"
+      );
+
+    }
+
+
+    img.src =
+      data.imageUrl;
+
+    preview.classList.add(
+      "has-image"
+    );
+
+    status.textContent =
+      "● CREATIVE READY";
+
+
+    const current =
+      parseInt(
+        credits.textContent,
+        10
+      );
+
+
+    if(
+      Number.isFinite(current) &&
+      current >= 4
+    ){
+
+      credits.textContent =
+        String(current - 4);
+
+    }
+
+
+    toast(
+      "CREATIVE READY → 4 CREDITS USED"
+    );
+
+
+  }catch(err){
+
+    console.error(err);
+
+    status.textContent =
+      "● GENERATION FAILED";
+
+    toast(
+      "GENERATION FAILED → NO CREDITS USED"
+    );
+
+
+  }finally{
+
+    generating.classList.remove(
+      "show"
+    );
+
+    generateBtn.disabled =
+      false;
+
+    generateBtn.style.opacity =
+      "";
+
+  }
+
+}
+
+
+function openModal(){
+
+  document
+    .getElementById("modal")
+    .classList.add("show");
+
+}
+
+
+function closeModal(){
+
+  document
+    .getElementById("modal")
+    .classList.remove("show");
+
+}
+
+
 function submitEmail(){
- const e=document.getElementById('email').value.trim();
- if(!e||!e.includes('@')){toast('ENTER A VALID EMAIL');return}
- closeModal();toast('ACCESS REQUEST RECEIVED ↗');
+
+  const email =
+    document
+      .getElementById("email")
+      .value
+      .trim();
+
+  if(
+    !email ||
+    !email.includes("@")
+  ){
+
+    toast(
+      "ENTER A VALID EMAIL"
+    );
+
+    return;
+
+  }
+
+  closeModal();
+
+  toast(
+    "ACCESS REQUEST RECEIVED ↗"
+  );
+
 }
-document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+
+
+document
+  .getElementById("modal")
+  .addEventListener(
+    "click",
+    e => {
+
+      if(
+        e.target.id === "modal"
+      ){
+
+        closeModal();
+
+      }
+
+    }
+  );
+
 </script>
+
 </body>
 </html>
